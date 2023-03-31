@@ -1,1 +1,8 @@
-Creame 20 lineas de insert into para una tabla moda_y_accesorios con los atributos: categoryId (siempre 4), remitente (numero random entre 1 y 156), offerId (empezando por 126), valor_estimado, remitente_busca (nombre de un producto similar que busque el usuario), nombre_producto, descripcion, estado, categoria (numero random entre 3 y 19) y talla (XS,S,M,L,XL,XXL). Para los random usa la funcion RANDOM de postgre
+Actualiza el diagrama UML y haz los update en motos, moda y accesorios,
+informatica y electrinica, bicicletas, servicios e inmobiliaria
+
+Añade la tabla usuario, intercambios y relacion con sus respectivas FK
+
+terminar el UML actualizado
+
+Si da tiempo, actualiza el texto

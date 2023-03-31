@@ -29,7 +29,9 @@ CREATE TABLE usuarios (
     apellidos VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     fecha_alta DATE NOT NULL,
-    isAdmin BOOLEAN NOT NULL
+    isAdmin BOOLEAN NOT NULL,
+	
+	CONSTRAINT pk_usuario PRIMARY KEY (id)
 );
 
 INSERT INTO usuarios (username, password, nombre, apellidos, email, fecha_alta, isAdmin)
@@ -199,35 +201,25 @@ CREATE TABLE categoria(
 	CONSTRAINT pk_categoria PRIMARY KEY (idCategoria)
 );
 
+
 INSERT INTO categoria (nombre, descripcion)
 VALUES 
     ('Coches', 'Categoría para productos relacionados con automóviles, desde coches de alta gama hasta coches usados y piezas de repuesto.'),
     ('Motos', 'Categoría para productos relacionados con motocicletas, desde motos deportivas hasta motos de cross y accesorios para motos.'),
-    ('Motor y Accesorios', 'Categoría para productos relacionados con motores y sus accesorios, desde motores de barcos hasta motores de motocicletas y repuestos.'),
     ('Moda y Accesorios', 'Categoría para productos relacionados con la moda y los accesorios, desde ropa de alta costura hasta joyas y accesorios de moda.'),
     ('Inmobiliaria', 'Categoría para productos relacionados con el mercado inmobiliario, desde apartamentos y casas hasta terrenos y propiedades comerciales.'),
     ('TV, Audio y Foto', 'Categoría para productos relacionados con televisores, sistemas de audio y fotografía, desde televisores de alta definición hasta cámaras y accesorios de fotografía.'),
-    ('Móviles y Telefonía', 'Categoría para productos relacionados con teléfonos móviles y telefonía, desde smartphones de última generación hasta accesorios para teléfonos móviles y servicios telefónicos.'),
     ('Informática y Electrónica', 'Categoría para productos relacionados con la informática y la electrónica, desde ordenadores y componentes hasta accesorios y dispositivos electrónicos.'),
-    ('Deporte y Ocio', 'Categoría para productos relacionados con el deporte y el ocio, desde equipamiento deportivo hasta juegos y juguetes para el tiempo libre.'),
     ('Bicicletas', 'Categoría para productos relacionados con las bicicletas, desde bicicletas de carretera hasta bicicletas de montaña y accesorios para bicicletas.'),
     ('Consolas y Videojuegos', 'Categoría para productos relacionados con consolas y videojuegos, desde consolas de juegos hasta juegos y accesorios para videojuegos.'),
-    ('Hogar y Jardín', 'Categoría para productos relacionados con el hogar y el jardín, desde muebles y decoración del hogar hasta herramientas y accesorios de jardinería.'),
-    ('Electrodomésticos', 'Categoría para productos relacionados con electrodomésticos, desde lavadoras y refrigeradores hasta aspiradoras y pequeños electrodomésticos.'),
     ('Cine, Libros y Música', 'Categoría para productos relacionados con el entretenimiento, desde películas y libros hasta música y accesorios para entretenimiento.'),
-    ('Niños y Bebés', 'Categoría para productos relacionados con niños y bebés, desde ropa y juguetes para niños hasta artículos de puericultura y accesorios para bebés.'),
-    ('Coleccionismo', 'Categoría para productos relacionados con el coleccionismo, desde sellos y monedas hasta figuras de acción y artículos de colección.'),
-	 ('Construcción y reformas', 'Categoría para productos relacionados con la construcción y las reformas, , desde materiales de construcción hasta herramientas y accesorios para reformas.'),
-	('Industria y Agricultura', 'Categoría para productos relacionados con la industria y la agricultura, desde maquinaria y equipos industriales hasta suministros y herramientas agrícolas.'),
 	('Servicios', 'Categoría para servicios relacionados con diversas áreas, desde servicios de limpieza hasta servicios de diseño y programación de software.');
 	
-CREATE TABLE intercambio(
-	
-)
+
 
 CREATE TABLE oferta(
 	remitente INT,
-	offerId INT,
+	offerId SERIAL UNIQUE,
 	valor_estimado NUMERIC(10,2) NOT NULL,
 	categoria SMALLINT NOT NULL,
 	nombre_producto VARCHAR(50) NOT NULL,
@@ -239,167 +231,288 @@ CREATE TABLE oferta(
 	CONSTRAINT pk_oferta PRIMARY KEY (remitente,offerId)
 );
 
+ALTER TABLE oferta
+	ADD CONSTRAINT fk_oferta_categoria FOREIGN KEY (categoria) REFERENCES categoria(idCategoria) ON DELETE SET NULL,
+	ADD CONSTRAINT fk_oferta_remitente FOREIGN KEY (remitente) REFERENCES usuarios(id) ON DELETE CASCADE;
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) 
+VALUES (83, 500, 3, 'Bolso de piel', 'Bolso de piel de alta calidad, color negro', 'nuevo', 3, 'Zapatos de tacón de marca');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) 
+VALUES (46, 1200, 7, 'Bicicleta de montaña', 'Bicicleta de montaña con cuadro de aluminio, frenos de disco', 'usado', 8, 'Consola de videojuegos PS5');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) 
+VALUES (97, 1500, 6, 'Portátil HP', 'Portátil HP con pantalla táctil, 16 GB de RAM y 1TB de almacenamiento', 'nuevo', 6, 'Smartphone de alta gama');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) 
+VALUES (123, 8000, 1, 'Coche deportivo', 'Coche deportivo de alta gama, 300 CV de potencia', 'usado', 9, 'Servicio de reformas de interiores');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) 
+VALUES (24, 200, 10, 'Servicio de limpieza', 'Servicio de limpieza de oficinas, experiencia demostrable', 'nuevo', 10, 'Servicio de catering para eventos'),
+(45, 500.00, 6, 'Portátil HP', 'Portátil HP en perfecto estado, pantalla de 15 pulgadas, 8 GB de RAM, disco duro de 1 TB.', 'usado', 6, 'Macbook Pro'),
+(88, 2500.00, 1, 'Ford Mustang', 'Coche en excelente estado, del año 2015, con 35,000 millas.', 'usado', 1, 'Camaro'),
+(112, 700.00, 5, 'Televisor Samsung', 'Televisor Samsung de 50 pulgadas en perfectas condiciones, con mando a distancia.', 'usado', 5, 'Televisor LG'),
+(23, 350.00, 3, 'Zapatos deportivos Nike', 'Zapatos deportivos Nike talla 9, en excelente estado.', 'usado', 3, 'Zapatos deportivos Adidas'),
+(78, 120.00, 7, 'Bicicleta de montaña', 'Bicicleta de montaña en perfecto estado, con cambios Shimano y frenos de disco.', 'usado', 7, 'Bicicleta de carretera'),
+(99, 1500.00, 4, 'Apartamento en el centro de la ciudad', 'Apartamento en el centro de la ciudad de 70 metros cuadrados, 2 habitaciones y 1 baño.', 'usado', 4, 'Piso en la playa'),
+(67, 450.00, 8, 'PlayStation 5', 'Consola PlayStation 5 con un controlador y un juego.', 'nuevo', 8, 'Xbox Series X'),
+(55, 90.00, 10, 'Limpieza de alfombras', 'Servicio de limpieza de alfombras de alta calidad.', 'nuevo', 10, 'Limpieza de muebles'),
+(27, 750.00, 6, 'iPhone 12', 'iPhone 12 en excelente estado, con 128 GB de almacenamiento.', 'usado', 6, 'Samsung Galaxy S21'),
+(123, 50.00, 2, 'Casco de moto', 'Casco de moto marca Bell talla M, en excelente estado.', 'usado', 2, 'Guantes de moto'),
+(17, 300.00, 9, 'Guitarra eléctrica', 'Guitarra eléctrica marca Fender, en excelente estado.', 'usado', 9, 'Amplificador de guitarra'),
+(89, 400.00, 4, 'Casa de campo con piscina', 'Casa de campo con piscina y jardín, ubicada a las afueras de la ciudad.', 'usado', 4, 'Piso en la ciudad'),
+(132, 100.00, 5, 'Cámara Nikon', 'Cámara Nikon en excelente estado, con lente de 18-55mm.', 'usado', 5, 'Cámara Canon');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (78, 500.00, 4, 'Casa en el centro', 'Bonita casa en el centro de la ciudad, con amplios espacios y excelente ubicación', 'Usado', 4, 'Departamento en la playa');
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (110, 100.00, 8, 'Playstation 4', 'Consola Playstation 4 en perfecto estado, incluye dos mandos y varios juegos', 'Como nuevo', 8, 'Consola Xbox One');
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (47, 150.00, 5, 'Televisor LG', 'Televisor LG en excelente estado, pantalla de 32 pulgadas, con control remoto', 'Usado', 5, 'Sistema de sonido Bose');
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (89, 300.00, 6, 'Laptop Asus', 'Laptop Asus en excelente estado, procesador i5, 8GB de RAM, 1TB de disco duro', 'Como nuevo', 6, 'Tablet Samsung Galaxy');
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (12, 80.00, 7, 'Bicicleta MTB', 'Bicicleta todo terreno en buen estado, rodado 26, con cambios Shimano', 'Usado', 7, 'Bicicleta de ruta');
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (135, 50.00, 10, 'Limpieza de hogar', 'Servicio de limpieza de hogar completo, incluye limpieza de ventanas, baños, cocina y habitaciones', 'Nuevo', 10, 'Servicio de pintura');
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (28, 200.00, 4, 'Casa en la montaña', 'Hermosa casa en la montaña, con vista panorámica y amplios espacios', 'Como nuevo', 4, 'Apartamento en la ciudad');
+
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (73, 120.00, 9, 'CD de música', 'Colección de 50 CD de música variada, en excelente estado', 'Usado', 9, 'DVD de películas');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) VALUES (93, 500, 5, 'Televisor LG 55 pulgadas', 'Televisor LG en excelente estado, con imagen nítida y sonido envolvente.', 'Usado', 5, 'Home Cinema Sony 5.1');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) VALUES (43, 250, 10, 'Limpieza de hogar', 'Ofrezco servicios de limpieza de hogar de forma profesional. Uso productos de calidad y garantizo un resultado impecable.', 'Nuevo', 10, 'Servicios de pintura y decoración');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) VALUES (120, 450, 6, 'MacBook Pro 2021', 'Vendo mi MacBook Pro 2021 con procesador Intel Core i5 y 8GB de RAM. Está en perfecto estado y se entrega con su caja original.', 'Usado', 6, 'Portátil gaming de gama alta');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) VALUES (71, 80, 3, 'Vestido negro de fiesta', 'Vendo mi vestido negro de fiesta, talla M. Solo lo he usado una vez y está como nuevo.', 'Usado', 3, 'Zapatos de tacón negros, talla 38');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca) VALUES (62, 350, 1, 'Volkswagen Golf VII', 'Vendo mi Volkswagen Golf VII en perfectas condiciones, con todos los mantenimientos al día. Color gris metalizado y con 150.000 km.', 'Usado', 1, 'Audi A3');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (74, DEFAULT, 750.00, 9, 'Vinilos de música clásica', 'Colección completa de vinilos de música clásica en perfecto estado', 'Disponible', 9, 'CDs y vinilos');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (112, DEFAULT, 2800.00, 5, 'Televisor Sony Bravia 65"', 'Televisor LED 4K en perfecto estado con sonido envolvente', 'Nuevo', 5, 'Equipo de sonido');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (29, DEFAULT, 300.00, 8, 'Nintendo Switch', 'Consola Nintendo Switch con funda protectora y dos juegos incluidos', 'Como nuevo', 8, 'Juegos de PS4');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (87, DEFAULT, 500.00, 3, 'Bolso Gucci', 'Bolso de cuero de la marca Gucci en perfecto estado', 'Usado', 3, 'Bolsos de Michael Kors');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (55, DEFAULT, 1500.00, 1, 'Audi A4', 'Coche Audi A4 en excelente estado con tapicería de cuero', 'Como nuevo', 1, 'Coche BMW');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (102, DEFAULT, 80.00, 6, 'Ratón inalámbrico', 'Ratón para ordenador inalámbrico en buen estado', 'Usado', 6, 'Teclado para ordenador');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (45, DEFAULT, 250.00, 10, 'Limpieza de casa', 'Servicio de limpieza de casa por hora', 'Disponible', 10, 'Servicio de jardinería');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (92, DEFAULT, 450.00, 4, 'Piso en el centro', 'Piso en el centro de la ciudad de 80 metros cuadrados', 'Como nuevo', 4, 'Casa en la playa');
+INSERT INTO oferta (remitente, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (45, 400, 1, 'Volkswagen Golf GTI', 'Vendo mi Golf GTI en excelente estado, modelo 2018 con 50.000 km recorridos, color rojo, tapicería en cuero, cámara de reversa, techo panorámico, llantas nuevas, precio negociable.', 'usado', 1, 'busco coche de menor valor en buen estado'),
+(72, 1200, 2, 'Yamaha R1', 'Vendo mi moto Yamaha R1 en excelentes condiciones, modelo 2020 con 10.000 km recorridos, color azul y blanco, escape Akrapovic, llantas nuevas, papeles al día, precio negociable.', 'usado', 2, 'busco moto deportiva de menor valor'),
+(94, 800, 3, 'Zapatos de cuero', 'Vendo zapatos de cuero para caballero, marca Timberland, talla 42, color café oscuro, en excelentes condiciones, poco uso.', 'usado', 3, 'busco zapatos deportivos de marca reconocida'),
+(26, 2000, 4, 'Casa en zona residencial', 'Vendo casa de dos pisos en zona residencial, 300 metros cuadrados de construcción, 4 habitaciones, 3 baños, terraza con vista panorámica, garaje para dos carros, seguridad las 24 horas.', 'nuevo', 4, 'busco apartamento de menor valor en zona céntrica'),
+(63, 150, 5, 'Cámara Canon EOS', 'Vendo cámara Canon EOS 1200D con lente 18-55 mm, en excelentes condiciones, poco uso, con cargador y memoria de 8 GB.', 'usado', 5, 'busco cámara de video profesional'),
+(108, 400, 6, 'Laptop Dell Inspiron', 'Vendo laptop Dell Inspiron 15, 8 GB de RAM, 500 GB de disco duro, procesador Intel Core i5, en excelentes condiciones, poco uso.', 'usado', 6, 'busco laptop de menor valor con procesador i3'),
+(31, 300, 7, 'Bicicleta de montaña', 'Vendo bicicleta de montaña marca Scott, modelo Aspect 950, en excelentes condiciones, poco uso, color negro, frenos de disco, llantas nuevas, talla M.', 'usado', 7, 'busco bicicleta de ruta de menor valor'),
+(115, 250, 8, 'PlayStation 4', 'Vendo consola PlayStation 4 con dos controles, en excelentes condiciones, poco uso, con juegos incluidos.', 'usado', 8, 'busco Nintendo Switch en buen estado'),
+(79, 20, 9, 'CD de música pop', 'Vendo CD original de música pop, de la artista Taylor Swift, en excelentes condiciones, como nuevo.', 'usado', 9, 'busco DVD de películas infantiles');
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (107, DEFAULT, 250.00, 8, 'Playstation 5', 'Consola de videojuegos nueva, en su caja original', 'Nuevo', 8, 'Nintendo Switch Lite');
+
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (55, DEFAULT, 3000.00, 1, 'Mercedes Benz Clase C', 'Coche en buen estado, con 100,000 km recorridos', 'Usado', 1, 'Audi A4');
+
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (73, DEFAULT, 150.00, 4, 'Apartamento en el centro', 'Apartamento de 2 habitaciones y 1 baño en excelente ubicación', 'Usado', 4, 'Casa en las afueras');
+
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (42, DEFAULT, 1000.00, 9, 'Servicio de limpieza', 'Ofrezco servicio de limpieza por hora', 'Nuevo', 9, 'Servicio de jardinería');
+
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (89, DEFAULT, 450.00, 7, 'Bicicleta de montaña', 'Bicicleta de montaña en buen estado, con frenos hidráulicos', 'Usado', 7, 'Bicicleta de carretera');
+
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (124, DEFAULT, 200.00, 3, 'Zapatos de tacón', 'Zapatos de tacón nuevos, talla 38', 'Nuevo', 3, 'Bolso de mano');
+
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (33, DEFAULT, 800.00, 5, 'Televisor LG', 'Televisor LG de 55 pulgadas, en buen estado', 'Usado', 5, 'Altavoces para TV');
+
+INSERT INTO oferta (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+VALUES (76, DEFAULT, 50.00, 10, 'Servicio de peluquería', 'Corte de cabello y peinado en mi salón de belleza', 'Nuevo', 10, 'Masajes relajantes');
+
+
+
 CREATE TABLE coches(
 	categoryId SMALLINT,
 	km NUMERIC (10,2),
 	consumo NUMERIC (4,2),
 	num_puertas SMALLINT,
 	
-	CONSTRAINT pk_coches PRIMARY KEY (categoryId,remitente, offerId)
+	CONSTRAINT pk_coches PRIMARY KEY (remitente, offerId)
 )
 INHERITS (oferta);
 
-INSERT INTO Coches (categoryId, remitente, offerId, valor_estimado, remitente_busca, nombre_producto, descripcion, estado, categoria, remitente_busca_cat, km, consumo, num_puertas) VALUES
-(1,FLOOR(RANDOM() * 156) + 1, 100, 15000.00, 'busco coche deportivo', 'Porsche 911', 'Excelente estado, recién pintado, con mantenimiento al día.', 'Usado', 1, 1, 50000, 8.5, 2),
-(1,FLOOR(RANDOM() * 156) + 1, 101, 7500.00, 'busco coche pequeño y económico', 'Renault Clio', 'Buen estado, bajo consumo, ideal para ciudad.', 'Usado', 1, 1, 120000, 5.2, 3),
-(1,FLOOR(RANDOM() * 156) + 1, 102, 45000.00, 'busco coche familiar y espacioso', 'Ford Galaxy', 'Excelente estado, 7 plazas, con navegador y cámara de retroceso.', 'Usado', 1, 1, 80000, 7.9, 5),
-(1,FLOOR(RANDOM() * 156) + 1, 103, 20000.00, 'busco coche para trabajo', 'Ford Transit', 'Excelente estado, con estanterías y espacio de carga amplio.', 'Usado', 1, 1, 120000, 9.2, 4),
-(1,FLOOR(RANDOM() * 156) + 1, 104, 35000.00, 'busco coche para aventuras', 'Jeep Wrangler', 'Excelente estado, ideal para salir de ruta.', 'Usado', 1, 1, 60000, 12.0, 2),
-(1,FLOOR(RANDOM() * 156) + 1, 105, 18000.00, 'busco coche para ciudad', 'Fiat 500', 'Excelente estado, bajo consumo, ideal para moverse por la ciudad.', 'Usado', 1, 1, 90000, 4.8, 3),
-(1,FLOOR(RANDOM() * 156) + 1, 106, 50000.00, 'busco coche de lujo', 'Mercedes-Benz S-Class', 'Excelente estado, con asientos de cuero y todas las comodidades.', 'Usado', 1, 1, 45000, 10.5, 4),
-(1,FLOOR(RANDOM() * 156) + 1, 107, 12000.00, 'busco coche pequeño y ágil', 'Toyota Yaris', 'Buen estado, bajo consumo, ideal para ciudad.', 'Usado', 1, 1, 100000, 5.0, 3),
-(1,FLOOR(RANDOM() * 156) + 1, 108, 8000.00, 'busco coche económico', 'Nissan Micra', 'Buen estado, bajo consumo, ideal para ciudad.', 'Usado', 1, 1,150000, 4.5, 3);
+ALTER TABLE coches
+	ADD CONSTRAINT fk_coches_remitente_offerid FOREIGN KEY(remitente,offerId) REFERENCES oferta(remitente,offerId);
+
+INSERT INTO coches (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 1;
+
+UPDATE coches
+SET km = 150000, consumo = 10, num_puertas=5 WHERE offerid=4;
 
 CREATE TABLE motos(
-	categoryId SMALLINT,
 	km NUMERIC (10,2),
 	consumo NUMERIC (4,2),
 	cilindrada VARCHAR(20),
 	
-	CONSTRAINT pk_motos PRIMARY KEY (categoryId,remitente, offerId)
+	CONSTRAINT pk_motos PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
 
-INSERT INTO Motos(categoryId, remitente, offerId, valor_estimado, remitente_busca, nombre_producto, descripcion, estado, categoria, remitente_busca_cat, km, consumo, cilindrada) 
-VALUES (2, FLOOR(RANDOM() * 156) + 1, 109, 1500.00, 'Busco una moto deportiva', 'Yamaha R1', 'Moto deportiva Yamaha R1 en excelente estado', 'Usado', 2, 2, 30000, 5.6, 1000),
-       (2, FLOOR(RANDOM() * 156) + 1, 110, 2000.00, 'Busco una moto para viajar', 'BMW R1200GS', 'Moto BMW R1200GS con accesorios para viajes', 'Usado', 2, 2, 40000, 4.2, 1200),
-       (2, FLOOR(RANDOM() * 156) + 1, 111, 2500.00, 'Busco una moto para ciudad', 'Honda CBR250R', 'Moto Honda CBR250R en buen estado', 'Usado', 2, 2, 20000, 3.8, 250),
-       (2, FLOOR(RANDOM() * 156) + 1, 112, 1800.00, 'Busco una moto para pasear', 'Suzuki SV650', 'Moto Suzuki SV650 con accesorios deportivos', 'Usado', 2, 2, 35000, 4.0, 650),
-       (2, FLOOR(RANDOM() * 156) + 1, 113, 3200.00, 'Busco una moto para competir', 'Kawasaki Ninja ZX-6R', 'Moto Kawasaki Ninja ZX-6R en perfectas condiciones', 'Usado', 2, 2, 25000, 5.0, 600),
-       (2, FLOOR(RANDOM() * 156) + 1, 114, 2800.00, 'Busco una moto para pasear', 'Harley Davidson Softail', 'Moto Harley Davidson Softail en excelente estado', 'Usado', 2, 2, 40000, 5.5, 1600),
-       (2, FLOOR(RANDOM() * 156) + 1, 115, 2200.00, 'Busco una moto para la ciudad', 'KTM Duke 390', 'Moto KTM Duke 390 en buen estado', 'Usado', 2, 2, 15000, 3.5, 390),
-       (2, FLOOR(RANDOM() * 156) + 1, 116, 1500.00, 'Busco una moto de segunda mano', 'Suzuki GSX-R600', 'Moto Suzuki GSX-R600 en perfecto estado', 'Usado', 2, 2, 28000, 4.5, 600),
-       (2, FLOOR(RANDOM() * 156) + 1, 117, 1900.00, 'Busco una moto para la ciudad', 'Yamaha MT-03', 'Moto Yamaha MT-03 en excelente estado', 'Usado', 2, 2, 20000, 3.8, 300);
+ALTER TABLE motos
+	ADD CONSTRAINT fk_motos_remitente_offerid FOREIGN KEY(remitente,offerId) REFERENCES oferta(remitente,offerId);
 
-CREATE TABLE motor_y_accesorios(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_motor_y_accesorios PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
-
-INSERT INTO motor_y_accesorios (categoryId, remitente, offerId, valor_estimado, remitente_busca, nombre_producto, descripcion, estado, categoria, remitente_busca_cat)
-VALUES
-(3, FLOOR(RANDOM() * 156) + 1, 118, 5000, 'Busco motor diesel', 'Motor diesel con modelo XYZ', 'Nuevo en su caja', 'Nuevo', 1, FLOOR(RANDOM() * 17) + 3),
-(3, FLOOR(RANDOM() * 156) + 1, 119, 2500, 'Necesito accesorios para motor', 'Accesorios para motor de modelo ABC', 'Usados pero en buen estado', 'Usado', 2, FLOOR(RANDOM() * 17) + 3),
-(3, FLOOR(RANDOM() * 156) + 1, 120, 10000, 'Busco motor eléctrico para bote', 'Motor eléctrico modelo LMN', 'Nuevo, en su caja', 'Nuevo', 3, FLOOR(RANDOM() * 17) + 3),
-(3, FLOOR(RANDOM() * 156) + 1, 121, 7500, 'Vendo motor de gasolina', 'Motor de gasolina de modelo DEF', 'Usado en buen estado', 'Usado', 4, FLOOR(RANDOM() * 17) + 3),
-(3, FLOOR(RANDOM() * 156) + 1, 122, 3000, 'Busco repuestos para motor', 'Repuestos para motor modelo XYZ', 'Usados pero en buen estado', 'Usado', 5, FLOOR(RANDOM() * 17) + 3),
-(3, FLOOR(RANDOM() * 156) + 1, 123, 15000, 'Vendo motor fuera de borda', 'Motor fuera de borda modelo GHI', 'Usado pero en buen estado', 'Usado', 6, FLOOR(RANDOM() * 17) + 3),
-(3, FLOOR(RANDOM() * 156) + 1, 124, 8000, 'Busco motor para bote', 'Motor para bote modelo JKL', 'Nuevo, en su caja', 'Nuevo', 7, FLOOR(RANDOM() * 17) + 3),
-(3, FLOOR(RANDOM() * 156) + 1, 125, 12000, 'Vendo motor eléctrico de alto rendimiento', 'Motor eléctrico de alto rendimiento modelo MNO', 'Usado pero en excelentes condiciones', 'Usado', 8, FLOOR(RANDOM() * 17) + 3);
+INSERT INTO motos (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 2;
 
 CREATE TABLE moda_y_accesorios(
 	categoryId SMALLINT,
 	talla VARCHAR(4),
 	
-	CONSTRAINT pk_moda_y_accesorios PRIMARY KEY (categoryId, remitente, offerId)
+	CONSTRAINT pk_moda_y_accesorios PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
 
-INSERT INTO moda_y_accesorios (categoryId, remitente, offerId, valor_estimado, remitente_busca, nombre_producto, descripcion, estado, categoria, talla)
-VALUES 
-    (4, floor(random()*156+1), 126, 50.00, 'Zapatos deportivos', 'Zapatillas Nike', 'Zapatillas Nike Air Max 90 para hombre', 'Nuevo', floor(random()*17+3), 'XL'),
-    (4, floor(random()*156+1), 127, 25.00, 'Bolso', 'Bolso de cuero', 'Bolso de cuero marrón para hombre', 'Usado', floor(random()*17+3), 'L'),
-    (4, floor(random()*156+1), 128, 30.00, 'Zapatillas de running', 'Zapatillas Adidas', 'Zapatillas de running Adidas UltraBoost para hombre', 'Nuevo', floor(random()*17+3), 'M'),
-    (4, floor(random()*156+1), 129, 15.00, 'Cinturón', 'Cinturón de cuero', 'Cinturón de cuero negro para mujer', 'Usado', floor(random()*17+3), 'S'),
-    (4, floor(random()*156+1), 130, 75.00, 'Reloj inteligente', 'Apple Watch', 'Reloj inteligente Apple Watch Series 6', 'Nuevo', floor(random()*17+3), 'XL'),
-    (4, floor(random()*156+1), 131, 40.00, 'Gafas de sol', 'Gafas Oakley', 'Gafas de sol Oakley Frogskins para hombre', 'Nuevo', floor(random()*17+3), 'M'),
-    (4, floor(random()*156+1), 132, 55.00, 'Camisa', 'Camisa de vestir', 'Camisa de vestir blanca para hombre', 'Nuevo', floor(random()*17+3), 'S'),
-    (4, floor(random()*156+1), 133, 10.00, 'Calcetines', 'Calcetines deportivos', 'Calcetines deportivos para hombre', 'Nuevo', floor(random()*17+3), 'L'),
-    (4, floor(random()*156+1), 134, 120.00, 'Chaqueta', 'Chaqueta de cuero', 'Chaqueta de cuero negra para mujer', 'Nuevo', floor(random()*17+3), 'XL'),
-    (4, floor(random()*156+1), 135, 50.00, 'Sombrero', 'Sombrero de lana', 'Sombrero de lana gris para hombre', 'Usado', floor(random()*17+3), 'M'),
-    (4, floor(random()*156+1), 136, 35.00, 'Pulsera', 'Pulsera de plata', 'Pulsera de plata para mujer', 'Nuevo', floor(random()*17+3), 'S');
+ALTER TABLE moda_y_accesorios
+	ADD CONSTRAINT fk_moda_y_accesorios_remitente_offerid FOREIGN KEY(remitente,offerId) REFERENCES oferta(remitente,offerId);
+
+INSERT INTO moda_y_accesorios (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 3;
 
 CREATE TABLE inmobiliaria(
 	categoryId SMALLINT,
+	m2 NUMERIC (6,2),
+	numBaños SMALLINT,
+	numHabitaciones SMALLINT,
+	direccion VARCHAR(70),
 	
-	CONSTRAINT pk_inmobiliaria PRIMARY KEY (categoryId, remitente, offerId)
+	CONSTRAINT pk_inmobiliaria PRIMARY KEY (offerId,remitente)
 )INHERITS (oferta);
+
+ALTER TABLE inmobiliaria
+	ADD CONSTRAINT fk_inmobiliaria_remitente_offerid FOREIGN KEY (remitente,offerId) REFERENCES oferta(remitente,offerId) ON DELETE CASCADE;
+
+INSERT INTO inmobiliaria (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 4;
 
 CREATE TABLE tv_audio_y_foto(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_tv_audio_y_foto PRIMARY KEY (categoryId, remitente, offerId)
+	CONSTRAINT pk_tv_audio_y_foto PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
 
-CREATE TABLE moviles_y_telefonia(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_moviles_y_telefonia PRIMARY KEY (categoryId, remitente, offerId)
+ALTER TABLE tv_audio_y_foto
+	ADD CONSTRAINT fk_tv_audio_y_foto_remitente_offerid FOREIGN KEY (remitente,offerId) REFERENCES oferta(remitente,offerId) ON DELETE CASCADE;
+
+INSERT INTO tv_audio_y_foto (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 5;
+
+
+CREATE TABLE informatica_y_electronica(
+	almacenamiento NUMERIC(10,2),
+	CONSTRAINT pk_informatica_y_electronica PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
 
-CREATE TABLE deporte_y_ocio(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_deporte_y_ocio PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
+INSERT INTO informatica_y_electronica (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 6;
+
+ALTER TABLE informatica_y_electronica
+	ADD CONSTRAINT fk_informatica_y_electronica FOREIGN KEY (remitente,offerId) REFERENCES oferta(remitente,offerId) ON DELETE CASCADE;
 
 CREATE TABLE bicicletas(
 	categoryId SMALLINT,
 	
-		CONSTRAINT pk_bicicletas PRIMARY KEY (categoryId, remitente, offerId)
+		CONSTRAINT pk_bicicletas PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
+
+ALTER TABLE bicicletas
+	ADD CONSTRAINT fk_bicicletas_remitente_offerid FOREIGN KEY (remitente,offerId) REFERENCES oferta(remitente,offerId) ON DELETE CASCADE;
+
+INSERT INTO bicicletas (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 7;
 
 CREATE TABLE consolas_y_videojuegos(
 	categoryId SMALLINT,
 	
-	CONSTRAINT pk_consolas_y_videojuegos PRIMARY KEY (categoryId, remitente, offerId)
+	CONSTRAINT pk_consolas_y_videojuegos PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
 
-CREATE TABLE hogar_y_jardin(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_hogar_y_jardin PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
+ALTER TABLE consolas_y_videojuegos
+	ADD CONSTRAINT fk_consolas_y_videojuegos_remitente_offerid FOREIGN KEY (remitente,offerId) REFERENCES oferta(remitente,offerId) ON DELETE CASCADE;
 
-CREATE TABLE electrodomesticos(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_electrodomesticos PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
+INSERT INTO consolas_y_videojuegos (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 8;
 
 CREATE TABLE cine_libros_y_musica(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_cine_libros_y_musica PRIMARY KEY (categoryId, remitente, offerId)
+	CONSTRAINT pk_cine_libros_y_musica PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
 
-CREATE TABLE ninos_y_bebes(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_ninos_y_bebes PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
+ALTER TABLE cine_libros_y_musica
+	ADD CONSTRAINT fk_cine_libros_y_musica_remitente_offerid FOREIGN KEY (remitente,offerId) REFERENCES oferta(remitente,offerId) ON DELETE CASCADE;
 
-CREATE TABLE coleccionismo(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_coleccionismo PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
+INSERT INTO cine_libros_y_musica (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 9;
 
-CREATE TABLE construccion_y_reformas(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_construccion_y_reformas PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
-
-CREATE TABLE industria_y_agricultura(
-	categoryId SMALLINT,
-	
-	CONSTRAINT pk_industria_y_agricultura PRIMARY KEY (categoryId, remitente, offerId)
-)INHERITS (oferta);
-
-CREATE TABLE servivios(
-	categoryId SMALLINT,
+CREATE TABLE servicios(
 	reviews NUMERIC (2,1),
 	TIEMPO SMALLINT,
 	
-	CONSTRAINT pk_servicios PRIMARY KEY (categoryId, remitente, offerId)
+	CONSTRAINT pk_servicios PRIMARY KEY (remitente, offerId)
 )INHERITS (oferta);
+
+ALTER TABLE servicios
+	ADD CONSTRAINT fk_servicios_remitente_offerid FOREIGN KEY (remitente,offerId) REFERENCES oferta(remitente,offerId) ON DELETE CASCADE;
+
+INSERT INTO servicios (remitente, offerId, valor_estimado, categoria, nombre_producto, descripcion, estado, remitente_busca_cat, remitente_busca)
+SELECT *
+FROM oferta 
+WHERE categoria = 10;
+
+CREATE TABLE coeficiente(
+	offerId1 INT,
+	offerId2 INT,
+	coeficiente SMALLINT,
+	
+	CONSTRAINT pk_coeficiente PRIMARY KEY(offerId1,offerId2)
+);
+
+ALTER TABLE coeficiente
+	ADD CONSTRAINT fk_coeficiente_1 FOREIGN KEY (offerId1) REFERENCES oferta(offerId) ON DELETE CASCADE,
+	ADD CONSTRAINT fk_coeficiente_2 FOREIGN KEY (offerId2) REFERENCES oferta(offerId) ON DELETE CASCADE,
+	ADD CONSTRAINT fk_categoria1 FOREIGN KEY (categoria1) REFERENCES oferta(categoria) ON DELETE CASCADE;
+
+
+CREATE TABLE intercambio(
+	tradeID SERIAL,
+	fecha_intercambio DATE,
+	oferta_recipiente INT,
+	oferta_REMITENTE INT,
+	remitente INT,
+	CONSTRAINT pk_intercambio PRIMARY KEY (tradeId)
+);
+
+ALTER TABLE intercambio
+	ADD CONSTRAINT fk_intercambio_oferta_recipiente FOREIGN KEY (oferta_recipiente) REFERENCES oferta(offerId) ON DELETE CASCADE,
+	ADD CONSTRAINT fk_intercambio_oferta_remitente FOREIGN KEY (oferta_remitente) REFERENCES oferta(offerId) ON DELETE CASCADE,
+	ADD CONSTRAINT fk_intercambio_remitente FOREIGN KEY (remitente) REFERENCES usuarios(id) ON DELETE CASCADE;
