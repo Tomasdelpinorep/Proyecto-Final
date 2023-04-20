@@ -1,6 +1,5 @@
 Coches
 Motos
-Motor y Accesorios
 Moda y Accesorios
 Inmobiliaria
 TV, Audio y Foto
@@ -9,11 +8,5 @@ Informática y Electrónica
 Deporte y Ocio
 Biciletas
 Consolas y Videojuegos
-Hogar y Jardín
-Electrodomésticos
 Cine, Libros y Música
-Niños y Bebés
-Coleccionismo
-Construcción y reformas
-Industria y Agricultura
 Servicios

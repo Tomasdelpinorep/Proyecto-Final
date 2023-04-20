@@ -1,8 +1,0 @@
-Actualiza el diagrama UML y haz los update en motos, moda y accesorios,
-informatica y electrinica, bicicletas, servicios e inmobiliaria
-
-Añade la tabla usuario, intercambios y relacion con sus respectivas FK
-
-terminar el UML actualizado
-
-Si da tiempo, actualiza el texto

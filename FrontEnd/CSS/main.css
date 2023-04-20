@@ -1,0 +1,55 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
+    background: linear-gradient(to right, #5725E5, #7743DB) ;
+}
+
+.logo {
+    color: white !important;
+    font-weight: 700;
+    text-shadow: 4px 2px black, 2px 1px black, 0px 3px black;
+    font-size: 1.5em !important;
+    letter-spacing: 2px;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+#navbarSupportedContent {
+    flex-grow: 0;
+}
+
+.catchprase {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 550px;
+}
+
+.main-container{
+    background-color:#DFDFDF;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    overflow: hidden;
+    height: 80vh;
+}
+
+.subcontainer1 {
+    display: flex;
+    justify-content: center;
+}
+
+.catchprase h3 {
+    background: linear-gradient(to right, #5725E5, #7743DB);
+    color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 2.2rem;
+    padding: 30px 0 10px 0;
+}
+
+.catchprase p {
+    font-size: 1.2rem;
+}

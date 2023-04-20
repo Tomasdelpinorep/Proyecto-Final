@@ -499,8 +499,7 @@ CREATE TABLE coeficiente(
 
 ALTER TABLE coeficiente
 	ADD CONSTRAINT fk_coeficiente_1 FOREIGN KEY (offerId1) REFERENCES oferta(offerId) ON DELETE CASCADE,
-	ADD CONSTRAINT fk_coeficiente_2 FOREIGN KEY (offerId2) REFERENCES oferta(offerId) ON DELETE CASCADE,
-	ADD CONSTRAINT fk_categoria1 FOREIGN KEY (categoria1) REFERENCES oferta(categoria) ON DELETE CASCADE;
+	ADD CONSTRAINT fk_coeficiente_2 FOREIGN KEY (offerId2) REFERENCES oferta(offerId) ON DELETE CASCADE;
 
 
 CREATE TABLE intercambio(
@@ -516,3 +515,21 @@ ALTER TABLE intercambio
 	ADD CONSTRAINT fk_intercambio_oferta_recipiente FOREIGN KEY (oferta_recipiente) REFERENCES oferta(offerId) ON DELETE CASCADE,
 	ADD CONSTRAINT fk_intercambio_oferta_remitente FOREIGN KEY (oferta_remitente) REFERENCES oferta(offerId) ON DELETE CASCADE,
 	ADD CONSTRAINT fk_intercambio_remitente FOREIGN KEY (remitente) REFERENCES usuarios(id) ON DELETE CASCADE;
+	
+INSERT INTO intercambio (oferta_remitente)
+SELECT FLOOR(RANDOM() * 56) + 1 AS random_number
+FROM information_schema.tables AS t1
+CROSS JOIN information_schema.tables AS t2
+LIMIT 100;
+
+UPDATE intercambio(remitente, oferta_recipiente, fecha_intercambio)
+UPDATE intercambio 
+set fecha_intercambio = now() - (random() * interval '365 days'),
+remitente = oferta.remitente
+FROM oferta
+WHERE intercambio.oferta_remitente = oferta.offerId;
+
+UPDATE intercambio
+set oferta_recipiente = oferta.offerId
+FROM oferta
+WHERE oferta.remitente_busca_cat = oferta.categoria;
