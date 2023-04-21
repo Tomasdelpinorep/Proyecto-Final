@@ -29,7 +29,7 @@
     max-width: 550px;
 }
 
-.main-container{
+.slanted-background{
     background-color:#DFDFDF;
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
     overflow: hidden;
@@ -52,4 +52,21 @@
 
 .catchprase p {
     font-size: 1.2rem;
+}
+
+.form-control:focus{
+    border-color: #5725E5 !important;
+    box-shadow:0 0 0 .25rem rgba(119, 67, 219, 0.6) !important;
+}
+
+.purple-button{
+    background: linear-gradient(to right, #5725E5, #7743DB) !important;
+    border: none !important;
+}
+
+.category{
+    background-color: #5725E5;
+    width: 150px !important;
+    height: 100px;
+    border-radius: 10%;
 }
