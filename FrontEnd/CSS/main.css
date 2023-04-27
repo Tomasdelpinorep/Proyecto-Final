@@ -1,3 +1,4 @@
+/* THIS IS CSS FOR THE MAIN PAGE */
 * {
     font-family: 'Poppins', sans-serif;
 }
@@ -35,14 +36,23 @@
 
 .slanted-background {
     background-color: #DFDFDF;
+    display: flex;
+    justify-content: center;
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
     overflow: hidden;
     height: 80vh;
+    width: 100vw;
+    z-index: -1;
+    position: absolute;
 }
 
 .subcontainer1 {
     display: flex;
     justify-content: center;
+}
+
+.catchprase h3, .catchprase p{
+    margin: 0 10px 10px 10px;
 }
 
 .catchprase h3 {
@@ -71,8 +81,8 @@
 .category {
     display: flex !important;
     flex-direction: column;
-    justify-content: center !important;
-    background-color: #5725E5;
+    justify-content: space-between  !important;
+    background: linear-gradient(to right, #5725E5, #7743DB);
     width: 150px !important;
     height: 125px;
     border-radius: 10%;
@@ -84,6 +94,8 @@
 
 .category i{
     font-size: 4rem;
+    color: white;
+    margin-top: 10px;
 }
 
 .flex{
@@ -106,11 +118,49 @@
     transform: scale(1.1);
 }
 
-@media(max-width:768px){
+a,a:visited{
+    text-decoration: none !important;
+}
+
+@media(max-width:992px){
     .nav-item{
         transform-origin: 0%;
     }
 }
+
+/* THIS IS CSS FOR THE LOGIN PAGE */
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #5725E5, #7743DB);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #5725E5, #7743DB);
+    }
+    
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+
+    .login-page-logo{
+        background: linear-gradient(to right, #5725E5, #7743DB);
+        border-radius: 5%;
+        padding: 5px 15px 5px 15px;
+        width: fit-content;
+        align-self: center;
+    }
+
+/* THIS IS ONLY TO TEST DIFFERENT SCREEN SIZES */
 
 @media (min-width: 576px) {
     body::before {
