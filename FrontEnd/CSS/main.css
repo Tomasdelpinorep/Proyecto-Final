@@ -4,6 +4,10 @@
     max-width: 100vw;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 .navbar {
     background: linear-gradient(to right, #5725E5, #7743DB);
 }

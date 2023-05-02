@@ -102,33 +102,40 @@
         let main = document.querySelector(".main");
         let logo = document.querySelector(".logo");
         let isSidebarOpen = localStorage.getItem('sidebarOpen') === "true";
-  
+        toggle.addEventListener("click",toggled);
+
         //Opens or closes the sidebar when loading the page
         if (isSidebarOpen || isSidebarOpen === null) {
-          navigation.classList.remove("active");
-          logo.classList.remove("hide-logo");
-          main.classList.remove("active");
+            navigation.classList.remove("active"); //removing active makes the sidebar open
+            logo.classList.remove("hide-logo");
+            main.classList.remove("active");
         } else {
-          navigation.classList.add("active");
-          logo.classList.add("hide-logo");
-          main.classList.add("active");
+            main.style.transitionDuration="0s";
+            navigation.style.transitionDuration = '0s';
+            navigation.classList.add("active"); //adding active makes the sidebar close
+            logo.classList.add("hide-logo");
+            main.classList.add("active");
         }
-  
+
         toggle.onclick = function () {
-          navigation.classList.toggle("active");
-          logo.classList.toggle("hide-logo");
-          main.classList.toggle("active");
-          localStorage.setItem('sidebarOpen', !navigation.classList.contains("active")); 
-          //if it contains active class, it means that it is closed
+            navigation.classList.toggle("active");
+            logo.classList.toggle("hide-logo");
+            main.classList.toggle("active");
+            localStorage.setItem('sidebarOpen', !navigation.classList.contains("active"));
         };
-  
+
         let list = document.querySelectorAll(".navigation li");
         function activeLink() {
-          list.forEach((item) => item.classList.remove("hovered"));
-          this.classList.add("hovered");
+            list.forEach((item) => item.classList.remove("hovered"));
+            this.classList.add("hovered");
         }
-  
+
         list.forEach((item) => item.addEventListener("mouseover", activeLink));
-      </script>
+
+        function toggled(){
+            navigation.style.transitionDuration = '0.5s';
+            main.style.transitionDuration="0.5s";
+        }
+    </script>
 </body>
 </html>
