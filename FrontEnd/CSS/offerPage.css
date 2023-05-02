@@ -1,0 +1,66 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    max-width: 100vw;
+}
+
+
+/*CSS ONLY FOR NAVBAR*/
+.navbar {
+    background: linear-gradient(to right, #5725E5, #7743DB);
+}
+
+.nav-item{
+    transition: transform 0.2s ease-in-out;
+}
+
+.logo {
+    color: white !important;
+    font-weight: 700;
+    text-shadow: 4px 2px black, 2px 1px black, 0px 3px black;
+    font-size: 1.5em !important;
+    letter-spacing: 2px;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+#navbarSupportedContent {
+    flex-grow: 0;
+}
+
+.nav-item:hover{
+    color: white;
+    font-weight: 600;
+    transform: scale(1.1);
+}
+
+@media(max-width:992px){
+    .nav-item{
+        transform-origin: 0%;
+    }
+}
+/* ******************************************************************************** */
+
+.row{
+    width: 50%;
+}
+
+.image-container{
+    background: #5725E5;
+    width: 100%;
+    min-width: 180px;
+    height: 150px;
+}
+
+.info{
+    background: red;
+    width: 100%;
+    height: 150px;
+}
+
+@media(max-width:992px){
+    .row{
+        width: 100%;
+    }
+}
