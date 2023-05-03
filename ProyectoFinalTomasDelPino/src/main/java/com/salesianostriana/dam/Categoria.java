@@ -8,16 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class Oferta {
+public class Categoria {
 
 	@GeneratedValue
 	private long id;
 	
-	private double valorEstimado;
-	private String remitenteBusca;
-	private Categoria remitenteBuscaCat;
-	private Categoria cat;
-	private String nombre,descripcion,estado;
-	public Usuario remitente;
-	
+	private String nombre;
 }
