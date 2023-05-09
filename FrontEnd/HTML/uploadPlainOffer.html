@@ -22,14 +22,15 @@
                 <div class="col center-items">
                     <p class="logo">Barter</p>
 
-                    <form action="">
+                    <form action=""> 
                         <label class="form-label" for="product-name">Nombre del producto:</label>
-                        <input class="mb-3" type="text" id="product-name" name="product-name"><br>
+                        <input required class="mb-3" type="text" id="product-name" name="product-name"><br>
                         <label for="product-description">Descripción:</label>
                         <textarea class="mb-3" id="product-description" name="product-description"></textarea><br>
 
                         <label class="form-label" for="product-category">Categoría:</label>
                         <select class="mb-3" id="product-category" name="product-category">
+                            <option value=""> --- </option>
                             <option value="Coches">Coches</option>
                             <option value="Motos">Motos</option>
                             <option value="Moda">Moda</option>
@@ -43,9 +44,10 @@
                         </select><br>
 
                         <label class="form-label" for="product-image">Imagen:</label>
-                        <input class="mb-3" type="file" id="product-image" name="product-image"><br>
+                        <input required class="mb-3" type="file" id="product-image" name="product-image"><br>
+
+                        <input type="button" class="btn" value=Siguiente>
                     </form>
-                    <a class="btn" href="">Siguiente</a>
                 </div>
             </div>
         </div>
