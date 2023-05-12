@@ -12,6 +12,14 @@ body{
     background: linear-gradient(to right, #5725E5, #7743DB);
 }
 
+.navbar-nav{
+    width: 500px;
+}
+
+.nav-item:first-child, .nav-item:last-child{
+    width: 150px;
+}
+
 .nav-item{
     transition: transform 0.2s ease-in-out;
 }
