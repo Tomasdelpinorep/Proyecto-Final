@@ -31,6 +31,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Admin Page</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Sube una oferta</a>
                     </li>
                     <li class="nav-item">
@@ -94,8 +97,8 @@
             <div class="col-lg-3 col-md-4 col-6 flex justify-content-center">
                 <a href="">
                     <div class="category">
-                        <i class="fa-solid fa-camera"></i></br>
-                        <p>Audio - Imagen</p>
+                        <i class="fa-solid fa-clapperboard"></i> </br>
+                        <p>Cine</p>
                     </div>
                 </a>
             </div>
@@ -111,7 +114,15 @@
                 <a href="">
                     <div class="category">
                         <i class="fa-solid fa-computer"></i></br>
-                        <p>Informática</p>
+                        <p>Ordenadores</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 flex justify-content-center">
+                <a href="">
+                    <div class="category">
+                        <i class="fa-solid fa-mobile-screen-button"></i></br>
+                        <p>Móviles</p>
                     </div>
                 </a>
             </div>
@@ -131,14 +142,6 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-6 flex justify-content-center">
-                <a href="">
-                    <div class="category">
-                        <i class="fa-solid fa-hammer"></i></i></br>
-                        <p>Servicios</p>
-                    </div>
-                </a>
-            </div>
         </div>
     </div>
     <section id="login-form" class="gradient-form">
@@ -155,24 +158,26 @@
                                         <h4 class="mt-1 mb-5 pb-1">Expertos en trueques</h4>
                                     </div>
 
-                                    <form method="POST" action="#" th:action="@{/}">
-                                        <p>Por favor, accede a tu cuenta</p>
-                                    
+                                    <form>
+                                        <p>Por favor accede a tu cuenta</p>
+
                                         <div class="form-outline mb-4">
-                                            <input type="text" id="username" name="username" class="form-control" placeholder="admin" />
-                                            <label class="form-label" for="username">Usuario</label>
+                                            <input type="email" id="form2Example11" class="form-control"
+                                                placeholder="admin" />
+                                            <label class="form-label" for="form2Example11">Usuario</label>
                                         </div>
-                                    
+
                                         <div class="form-outline mb-4">
-                                            <input type="password" id="password" name="password" class="form-control" />
-                                            <label class="form-label" for="password">Contraseña</label>
+                                            <input type="password" id="form2Example22" class="form-control" />
+                                            <label class="form-label" for="form2Example22">Contraseña</label>
                                         </div>
-                                    
+
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 p-3" type="submit">Log in</button>
+                                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 p-3"
+                                                type="button">Log
+                                                in</button>
                                         </div>
                                     </form>
-                                    
 
                                 </div>
                             </div>
@@ -198,15 +203,12 @@
         logInButton.addEventListener("click",toggleVisibility);
 
         function toggleVisibility() {
-            let element = document.getElementById("login-form");
-            let computedStyle = window.getComputedStyle(element);
-            let mainBody = document.getElementById("mainPage");
+            var element = document.getElementById("login-form");
+            var computedStyle = window.getComputedStyle(element);
             if (computedStyle.display === "none") {
                 element.classList.add('center-login');
-                mainBody.classList.add('blur');
             } else {
                 element.classList.remove('center-login');
-                mainBody.classList.remove('blur');
             }
         }
     </script>
