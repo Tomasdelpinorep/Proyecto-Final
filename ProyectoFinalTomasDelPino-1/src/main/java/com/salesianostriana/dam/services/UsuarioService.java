@@ -1,6 +1,9 @@
 package com.salesianostriana.dam.services;
 
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.salesianostriana.dam.baseServices.BaseService;
@@ -10,9 +13,20 @@ import com.salesianostriana.dam.repositories.UsuarioRepository;
 @Service
 public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository>{
 
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public UsuarioService(UsuarioRepository repo) {
 		super(repo);
 	}
+	
+	public void contarOfertas() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        for (Usuario u : usuarios) {
+            int num_ofertas = usuarioRepository.num_ofertas(u);
+            u.setNum_ofertas(num_ofertas);
+            usuarioRepository.save(u);
+        }
+    }
 
 }

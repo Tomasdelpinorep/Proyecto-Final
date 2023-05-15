@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -38,7 +39,13 @@ public class Usuario implements UserDetails{
 	private LocalDate fecha_alta;
 	
 	private boolean isAdmin;
-
+	
+	@Column(name = "num_ofertas", columnDefinition = "SMALLINT DEFAULT 0")
+	private int num_ofertas;
+	
+	@Column(name = "calificacion", columnDefinition = "SMALLINT DEFAULT 0")
+	private int calificacion;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		String role = "ROLE_";

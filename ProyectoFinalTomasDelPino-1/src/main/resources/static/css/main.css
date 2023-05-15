@@ -10,10 +10,21 @@ body{
 
 .navbar {
     background: linear-gradient(to right, #5725E5, #7743DB);
+    padding: 4px 0 4px 0 !important;
 }
 
-.nav-item{
-    transition: transform 0.2s ease-in-out;
+.navbar-nav{
+    width: 500px;
+    justify-content: flex-end;
+}
+
+.nav-item:first-child, .nav-item:last-child{
+    width: 150px;
+}
+
+.nav-link{
+    transition: transform 0.2s ease-in-out !important;
+    transform-origin: center;
 }
 
 .logo {
@@ -118,7 +129,7 @@ body{
     margin-top: 50px !important; 
 }
 
-.nav-item:hover{
+.nav-link:hover{
     color: white;
     font-weight: 600;
     transform: scale(1.1);
@@ -175,35 +186,56 @@ section div .row{
 .gradient-custom-2 {
     /* fallback for old browsers */
     background: #5725E5;
-    
     /* Chrome 10-25, Safari 5.1-6 */
     background: -webkit-linear-gradient(to right, #5725E5, #7743DB);
-    
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, #5725E5, #7743DB);
-    }
-    
-    @media (min-width: 768px) {
-    .gradient-form {
-    height: 100vh !important;
-    }
-    }
-    @media (min-width: 769px) {
-    .gradient-custom-2 {
-    border-top-right-radius: .3rem;
-    border-bottom-right-radius: .3rem;
-    }
+}
 
-    .blur{
-           /* Any browser which supports CSS3 */
-    filter: blur(5px);
+ @media (min-width: 768px) {
+.gradient-form {
+ height: 100vh !important;
+ }
+}
 
-    /* Firefox version 34 and earlier */
-    filter: url("blur.svg#gaussian_blur");
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+ }
+}
 
-    /* Webkit in Chrome 52, Safari 9, Opera 39, and earlier */
-    -webkit-filter: blur(5px);
-    }
+.blur{
+/* Any browser which supports CSS3 */
+filter: blur(5px);
+
+/* Firefox version 34 and earlier */
+filter: url("blur.svg#gaussian_blur");
+
+/* Webkit in Chrome 52, Safari 9, Opera 39, and earlier */
+-webkit-filter: blur(5px);
+}
+
+.btn-secondary{
+    --bs-btn-bg:transparent !important;
+    --bs-btn-border-color:transparent !important;
+    --bs-btn-hover-border-color:transparent !important;
+    --bs-btn-hover-bg: transparent !important;
+    --bs-btn-active-bg: transparent !important;
+}
+
+.btn.show{
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.dropdown-menu{
+    min-width: fit-content !important;
+}
+
+button:active{
+    background-color: #5725E5;
+}
 
 /* THIS IS ONLY TO TEST DIFFERENT SCREEN SIZES */
 
@@ -236,4 +268,3 @@ section div .row{
         content: "XXL";
     }
 } */
-}
