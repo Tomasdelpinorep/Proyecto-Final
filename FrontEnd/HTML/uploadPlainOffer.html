@@ -22,14 +22,16 @@
                 <div class="col center-items">
                     <p class="logo">Barter</p>
 
-                    <form action=""> 
+                    <!-- FORMULARIO BASE -->
+                    <form class="visible" id="form1" action="">
                         <label class="form-label" for="product-name">Nombre del producto:</label>
-                        <input required class="mb-3" type="text" id="product-name" name="product-name"><br>
+                        <input required required class="mb-3 form-control" type="text" id="product-name" name="product-name"><br>
                         <label for="product-description">Descripción:</label>
-                        <textarea class="mb-3" id="product-description" name="product-description"></textarea><br>
+                        <textarea required class="mb-3 form-control" id="product-description"
+                            name="product-description"></textarea><br>
 
                         <label class="form-label" for="product-category">Categoría:</label>
-                        <select class="mb-3" id="product-category" name="product-category">
+                        <select required class="mb-3 form-control" id="categoria" name="categoria">
                             <option value=""> --- </option>
                             <option value="Coches">Coches</option>
                             <option value="Motos">Motos</option>
@@ -44,14 +46,186 @@
                         </select><br>
 
                         <label class="form-label" for="product-image">Imagen:</label>
-                        <input required class="mb-3" type="file" id="product-image" name="product-image"><br>
+                        <input required class="mb-3 form-control" type="file" id="product-image"
+                            name="product-image"><br>
 
-                        <input type="button" class="btn" value=Siguiente>
+                        <input id="nextButton" type="button" class="btn" value=Siguiente>
+                    </form>
+
+                    <!-- FORMULARIOS ESPECÍFICOS-->
+                    <form action="" class="hidden" id="form2">
+
+                        <div id="form2_coches" class="hidden">
+                            <label class="form-label" for="km">Kilómetros:</label>
+                            <input class="mb-3 form-control" type="number" id="km" name="km" min="1" max="999999"
+                                step="100"><br>
+                            <label class="form-label" for="puertas">Puertas:</label>
+                            <input required class="mb-3 form-control" type="number" id="puertas" name="puertas" min="3"
+                                max="7" step="1"><br>
+                            <label class="form-label" for="consumo">Consumo:</label>
+                            <input class="mb-3 form-control" type="number" step="0.1" min="1.0" id="consumo"
+                                name="consumo" placeholder="5.8"><br>
+                        </div>
+
+                        <div id="form2_motos" class="hidden">
+                            <label class="form-label" for="km">Kilómetros:</label>
+                            <input class="mb-3 form-control" type="number" id="km" name="km" min="1" max="999999"
+                                step="100"><br>
+                            <label class="form-label" for="cilindrada">Cilindrada:</label>
+                            <select class="mb-3 form-control" id="cilindrada" name="cilindrada">
+                                <option value=""> --- </option>
+                                <option value="50">50</option>
+                                <option value="125">125</option>
+                                <option value="250">250</option>
+                                <option value="300">300</option>
+                                <option value="500">500</option>
+                                <option value="900">900</option>
+                                <option value="1000">1000</option>
+                            </select><br>
+                            <label class="form-label" for="consumo">Consumo:</label>
+                            <input class="mb-3 form-control" type="number" step="0.1" min="1.0" id="consumo"
+                                name="consumo" placeholder="5.8"><br>
+                        </div>
+
+                        <div id="form2_moda" class="hidden">
+                            <label class="form-label" for="talla">Talla:</label>
+                            <select class="mb-3 form-control" id="talla" name="talla">
+                                <option value=""> --- </option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select><br>
+                        </div>
+
+
+                        <div id="form2_inmo" class="hidden">
+                            <label class="form-label" for="m2">Metros Cuadrados:</label>
+                            <input class="mb-3 form-control" type="number" id="m2" name="m2" min="1" max="999999"
+                                step="10"><br>
+                            <label class="form-label" for="banos">Baños:</label>
+                            <input class="mb-3 form-control" type="number" id="banos" name="banos" min="1" max="99"
+                                step="1"><br>
+                            <label class="form-label" for="consumo">Habitaciones:</label>
+                            <input class="mb-3 form-control" type="number" step="1" min="1" id="habitaciones"
+                                name="habitaciones" placeholder="5.8"><br>
+                            <label for="direccion" class="form-label">Dirección:</label>
+                            <input class="mb-3 form-control" type="text" name="direccion" id="direccion">
+                        </div>
+
+                        <div id="form2_bicis" class="hidden">
+                            <label class="form-label" for="tipo_bici">Tipo de bici:</label>
+                            <select class="mb-3 form-control" id="tipo_bici" name="tipo_bici">
+                                <option value=""> --- </option>
+                                <option value="Montana">Montaña</option>
+                                <option value="Carretera">Carretera</option>
+                            </select><br>
+                            <label class="form-label" for="num_marchas">Número de marchas:</label>
+                            <input class="mb-3 form-control" type="number" id="num_marchas" name="num_marchas" min="1"
+                                max="20" step="1"><br>
+                        </div>
+
+
+                        <div id="form2_servicios" class="hidden">
+                            <label class="form-label" for="tiempo">Duración del servicio (minutos):</label>
+                            <input class="mb-3 form-control" type="number" id="tiempo" name="tiempo" min="5" max="999"
+                                step="5"><br>
+                            <label class="form-label" for="calificacion">Tu calificación para ofrecer el
+                                servicio:</label>
+                            <input class="mb-3 form-control" type="text" id="calificacion" name="calificacion"><br>
+                        </div>
+
+                        <input id="nextButton2" type="button" class="btn" value=Siguiente>
+                    </form>
+
+                    <!-- FORMULARIO FINAL -->
+                    <form class="hidden" id="form3" action="">
+                        <label class="form-label" for="valor_estimado">Valor Estimado Del Producto:</label>
+                        <input class="mb-3 form-control" type="number" id="valor_estimado" name="valor_estimado"
+                            min="1"><br>
+
+                        <label class="form-label" for="remitente_busca_cat">Busco:</label>
+                        <select class="mb-3 form-control" id="remitente_busca_cat" name="remitente_busca_cat">
+                            <option value=""> --- </option>
+                            <option value="Coches">Coches</option>
+                            <option value="Motos">Motos</option>
+                            <option value="Moda">Moda</option>
+                            <option value="Inmobiliaria">Inmobiliaria</option>
+                            <option value="Cine">Cine</option>
+                            <option value="Videojuegos">Videojuegos</option>
+                            <option value="Ordenadores">Ordenadores</option>
+                            <option value="Móviles">Móviles</option>
+                            <option value="Bicis">Bicis</option>
+                            <option value="Deporte">Deporte</option>
+                        </select><br>
+
+                        <label for="remitente_busca">Descripción de lo que busco:</label>
+                        <textarea class="mb-3 form-control" id="remitente_busca" name="remitente_busca"></textarea><br>
+
+
+                        <input id="submiButton" type="button" class="btn" value="Subir Oferta">
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        let form1 = document.getElementById("form1");
+        let formCoches = document.getElementById("form2_coches");
+        let formMotos = document.getElementById("form2_motos");
+        let formModa = document.getElementById("form2_moda");
+        let formInmo = document.getElementById("form2_inmo");
+        let formBicis = document.getElementById("form2_bicis");
+        let formServicios = document.getElementById("form2_servicios");
+        let nextButton = document.getElementById("nextButton");
+        let nextButton2 = document.getElementById("nextButton2");
+        let categoria = document.getElementById("categoria");
+        nextButton.addEventListener("click", showNextForm);
+        nextButton2.addEventListener("click", showLastForm);
+
+        function showNextForm() {
+            form1.classList.add("hidden");
+            form1.classList.remove("visible");
+            form2.classList.remove("hidden");
+            form2.classList.add("visible");
+
+            if (categoria.value == "Coches") {
+                formCoches.classList.add("visible");
+                formCoches.classList.remove("hidden");
+
+            } else if (categoria.value == "Motos") {
+                formMotos.classList.add("visible");
+                formMotos.classList.remove("hidden");
+
+            } else if (categoria.value == "Moda") {
+                formModa.classList.add("visible");
+                formModa.classList.remove("hidden");
+
+            } else if (categoria.value == "Inmobiliaria") {
+                formInmo.classList.add("visible");
+                formInmo.classList.remove("hidden");
+
+            } else if (categoria.value == "Bicis") {
+                formBicis.classList.add("visible");
+                formBicis.classList.remove("hidden");
+
+            } else if (categoria.value == "Servicios") {
+                form.classList.add("visible");
+                formCoches.classList.remove("hidden");
+            } else {
+                showLastForm();
+            }
+        }
+
+        function showLastForm() {
+            form2.classList.add("hidden");
+            form3.classList.add("visible");
+            form3.classList.remove("hidden");
+        }
+    </script>
 </body>
 
 </html>

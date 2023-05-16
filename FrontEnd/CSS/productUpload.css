@@ -47,6 +47,7 @@ form{
 
 form textarea{
     width: 100% !important;
+    max-height: 300px;
 }
 
 .btn{
@@ -61,4 +62,18 @@ form textarea{
     background-color: lightgray;
     padding: 0 20px 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-control:focus{
+    box-shadow:   0 0 0 .25rem rgba(87,37,229,.25) !important;
+    border-color: transparent !important;
+}
+
+.visible{
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden{
+    display: none;
 }
