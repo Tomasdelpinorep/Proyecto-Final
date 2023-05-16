@@ -292,3 +292,22 @@ body {
 .details .recentOrders table tr td{
     text-align: center;
 }
+
+.back{
+    position: absolute;
+    top: 95%;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+}
+
+.back:hover{
+    font-weight: 700;
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.hide{
+    display: none;
+}
