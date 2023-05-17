@@ -23,7 +23,7 @@ public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository
 	public void contarOfertas() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         for (Usuario u : usuarios) {
-            int num_ofertas = usuarioRepository.num_ofertas(u);
+            int num_ofertas = usuarioRepository.num_ofertas(u.getId());
             u.setNum_ofertas(num_ofertas);
             usuarioRepository.save(u);
         }
