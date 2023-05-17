@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +36,7 @@ public class Oferta {
 	private String nombre,descripcion,estado;
 	
 	@OneToOne
+	 @OnDelete(action = OnDeleteAction.CASCADE)
 	public Usuario remitente;
 	
 	//Atributos para coches

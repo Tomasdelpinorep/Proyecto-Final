@@ -43,8 +43,8 @@ public class Usuario implements UserDetails{
 	@Column(name = "num_ofertas", columnDefinition = "SMALLINT DEFAULT 0")
 	private int num_ofertas;
 	
-	@Column(name = "calificacion", columnDefinition = "SMALLINT DEFAULT 0")
-	private int calificacion;
+	@Column(name = "calificacion", columnDefinition = "NUMERIC(3,2) DEFAULT 0")
+	private float calificacion;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

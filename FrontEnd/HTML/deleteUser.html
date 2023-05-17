@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../CSS/productUpload.css">
-    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="/css/productUpload.css">
+    <link rel="stylesheet" href="/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -18,6 +18,7 @@
     <nav class="navbar navbar-expand-lg" id="my-navbar">
         <div class="container-fluid">
             <a class="navbar-brand logo p-0" href="#">Barter</a>
+        </div>
     </nav>
     <div class="container-fluid p-0">
         <div class="slanted-background  "></div>
@@ -27,28 +28,32 @@
                 <div class="col center-items">
                     <p class="logo logo-background">Barter</p>
 
-                    <form class="visible" id="form1" action="">
+                    <form th:action="${usuario.id != 0} ? @{/admin/editUser/submit} : @{admin/newUser/submit}" th:object="${usuario}" 
+                    method="post" class="visible" id="form1">
+                    	<input th:if="${usuario.id != 0}" type="hidden" name="id" th:field="*{id}" />
                         <label class="form-label" for="name">Nombre:*</label>
-                        <input required oninvalid="showAlert()" class="mb-3 form-control" type="text" id="name" name="name"><br>
+                        <input required oninvalid="showAlert()" class="mb-3 form-control" 
+                        type="text" id="name" name="name" th:field="*{nombre}" readonly><br>
                         <label class="form-label" for="surname">Apellidos:*</label>
-                        <input required oninvalid="showAlert()" class="mb-3 form-control" type="text" id="surname" name="surname"><br>
+                        <input required oninvalid="showAlert()" class="mb-3 form-control" 
+                        type="text" id="surname" name="surname" th:field="*{apellidos}" readonly><br>
                         <label class="form-label" for="username">Nombre de usuario:*</label>
-                        <input required oninvalid="showAlert()" class="mb-3 form-control" type="text" id="username" name="username"><br>
+                        <input required oninvalid="showAlert()" class="mb-3 form-control" 
+                        type="text" id="username" name="username" th:field="*{username}" readonly><br>
                         <label for="email">Email:*</label>
-                        <input required class="mb-3 form-control" id="email" type="email"name="email"><br>
-                        <label for="password">Contraseña:*</label>
-                        <input required class="mb-3 form-control" id="password" type="password"name="password"><br>
+                        <input required class="mb-3 form-control" id="email" type="email"name="email" th:field="*{email}" readonly><br>
+                        <label class="form-label" for="rating">Calificación:</label>
+                        <input required oninvalid="showAlert()" class="mb-3 form-control" 
+                        type="number" min="1" max="5" step="0.1" id="rating" name="rating" th:field="*{calificacion}" readonly><br>
                         <div class="bottom-line d-flex justify-content-between">
-                            <input id="nextButton" type="submit" class="btnUpload" value=Aceptar>
-                            <p class="alert hidden">Debe rellenar todos los campos marcados con *</p>
+                            <a href="" class="btnUpload">Atrás</a>
+                            <input id="" type="submit" class="btnUpload" value=Borrar>
                         </div>
                     </form>
                 </div>
             </div>
         </div>    
     </div>
-
-    <script src="../JS/userFormScript.js"></script>
 </body>
 
 </html>

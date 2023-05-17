@@ -93,8 +93,8 @@
                   <td th:text="${usuario.fecha_alta}">02/10/2003</td>
                   <td th:text="${usuario.num_ofertas}">1</td>
                   <td th:text="${usuario.calificacion}">1</td>
-                  <td><a href="#" th:href="@{/editUser/{id}(id=${usuario.id})}">Editar</a></td>
-                  <td><a href="#" th:href="@{/deleteUser/{id}(id=${usuario.id})}">Borrar</a></td>
+                  <td><a href="#" th:href="@{/admin/editUser/{id}(id=${usuario.id})}">Editar</a></td>
+                  <td><a href="#" th:href="@{/admin/deleteUser/{id}(id=${usuario.id})}">Borrar</a></td>
                 </tr>
               </tbody>
             </table>

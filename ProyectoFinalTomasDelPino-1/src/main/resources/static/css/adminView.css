@@ -50,7 +50,6 @@ body {
 
 .navigation.active{
     width: 80px;
-
 }
 
 .navigation ul{
@@ -283,8 +282,13 @@ body {
 
 .details .recentOrders table tbody tr:hover{
     background: var(--main-gradient);
-    color: var( --white);
+    color: var(--white);
 }
+
+ tr:hover a{
+	 color: var(--white);
+	 background: none;
+ }
 
 .details .recentOrders table tr td{
     padding: 10px;
@@ -292,4 +296,33 @@ body {
 
 .details .recentOrders table tr td{
     text-align: center;
+}
+
+a,a:visited{
+	color: var(--purple1);
+	text-decoration: none;
+}
+
+.back{
+    position: absolute;
+    top: 95%;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+}
+
+.back:hover{
+    font-weight: 700;
+    transform: scale(1.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.hide{
+    display: none;
+}
+
+.alert{
+    font-weight: 700;
+    color: red;
 }

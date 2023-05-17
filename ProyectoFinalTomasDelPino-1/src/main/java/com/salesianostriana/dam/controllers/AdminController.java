@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +49,8 @@ public class AdminController {
 	
 	//CRUD***************************************************************************************
 	
+	//USUARIOS*******************************************************************
+	
 	@GetMapping("/editUser/{id}")
 	public String mostrarFormularioEdicion(@PathVariable long id, Model model) {
 		Usuario aEditar = usuarioService.findById(id);
@@ -59,15 +63,15 @@ public class AdminController {
 	}
 	
 	@PostMapping("/editUser/submit")
-	public String procesarFormularioEdicion(@ModelAttribute("alumno") Usuario u) {
+	public String procesarFormularioEdicion(@ModelAttribute("usuario") Usuario u) {
 		usuarioService.edit(u);
-		return "redirect:/";
+		return "redirect:/admin/adminUsers";
 	}
 	
 	@GetMapping("/deleteUser/{id}")
-	public String delete(@PathVariable long id) {
+	public String delete(@PathVariable long id,HttpSession session) {
 		usuarioService.deleteById(id);
-		return "redirect:/";
+		return "redirect:/admin/adminUsers";
 	}
 	
 	@GetMapping("/newUser")
@@ -77,10 +81,12 @@ public class AdminController {
 	}
 	
 	@PostMapping("/newUser/submit")
-	public String procesarFormularioUsuario(@ModelAttribute("oferta") Usuario u) {
+	public String procesarFormularioUsuario(@ModelAttribute("usuario") Usuario u) {
 		usuarioService.save(u);
 		return "redirect:/";
 	}
+	
+	//OFERTAS*******************************************************************
 	
 	@GetMapping("/editOffer/{id}")
 	public String mostrarFormularioEdicionOferta(@PathVariable long id, Model model) {
@@ -93,7 +99,7 @@ public class AdminController {
 		}
 	}
 	
-	@PostMapping("/editUser/submit")
+	@PostMapping("/editOffer/submit")
 	public String procesarFormularioEdicionOferta(@ModelAttribute("oferta") Oferta o) {
 		ofertaService.edit(o);
 		return "redirect:/";
@@ -105,13 +111,13 @@ public class AdminController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/newUser")
+	@GetMapping("/newOffer")
 	public String mostrarFormularioOferta(Model model) {
 		model.addAttribute("oferta", new Oferta());
 		return "newOfferForm";
 	}
 	
-	@PostMapping("/newUser/submit")
+	@PostMapping("/newOffer/submit")
 	public String procesarFormularioOferta(@ModelAttribute("oferta") Oferta o) {
 		ofertaService.save(o);
 		return "redirect:/";
