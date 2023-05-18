@@ -23,7 +23,8 @@ public class OfertaController {
 	
 	@GetMapping("/offers/{categoryId}")
 	public String mostrarOfertasCoches(@PathVariable long categoryId, Model model) {
-		model.addAttribute("offerListById", service.findById(categoryId));
+		model.addAttribute("offerListById", service.getOffersByCategoryId(categoryId));
+		System.err.println(service.getOffersByCategoryId(categoryId));
 		return "offerPage";
 	}
 }

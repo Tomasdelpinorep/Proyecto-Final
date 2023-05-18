@@ -689,3 +689,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/tomas/D
 2023-05-17 22:54:58 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLDataException: Value too long for column "CALIFICACION NUMERIC(2, 5)": "CAST(1.1 AS REAL) (24)"; SQL statement:
 update usuario set apellidos=?, calificacion=?, email=?, fecha_alta=?, is_admin=?, nombre=?, num_ofertas=?, password=?, username=? where id=? [22001-214]
+2023-05-18 19:32:16 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM OFERTA o WHERE o.id = 1[*]OFERTA"; SQL statement:
+SELECT * FROM OFERTA o WHERE o.id = 1OFERTA [42000-214]

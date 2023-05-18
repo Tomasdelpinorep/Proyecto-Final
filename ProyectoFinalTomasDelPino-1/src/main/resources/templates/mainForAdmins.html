@@ -207,20 +207,7 @@
         </div>
     </section>
 
-    <script>
-        let logInButton = document.getElementById('logInButton');
-        logInButton.addEventListener("click",toggleVisibility);
-
-        function toggleVisibility() {
-            let element = document.getElementById("login-form");
-            let computedStyle = window.getComputedStyle(element);
-            if (computedStyle.display === "none") {
-                element.classList.add('center-login');
-            } else {
-                element.classList.remove('center-login');
-            }
-        }
-    </script>
+    <script src="/js/logInScript.js"></script>
 </body>
 
 </html>

@@ -242,6 +242,7 @@ section div .row {
   -webkit-filter: blur(5px);
 }
 
+/* THIS IS CSS FOR LOG OUT AND OTHER BUTTONS */
 .btn-secondary {
   --bs-btn-bg: transparent !important;
   --bs-btn-border-color: transparent !important;
