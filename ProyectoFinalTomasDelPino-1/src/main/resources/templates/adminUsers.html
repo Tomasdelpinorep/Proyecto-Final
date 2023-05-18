@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin</title>
-    <link rel="stylesheet" href="../CSS/adminView.css" />
+    <link rel="stylesheet" href="../CSS/adminView.css"/>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap"
       rel="stylesheet"
@@ -21,7 +21,7 @@
             </a>
           </li>
           <li>
-            <a href="/adminUsers">
+            <a href="adminUsers">
               <span class="icon"
                 ><ion-icon name="person-outline"></ion-icon
               ></span>
@@ -29,7 +29,7 @@
             </a>
           </li>
           <li>
-            <a href="/adminOffers">
+            <a href="adminOffers">
               <span class="icon"
                 ><ion-icon name="grid-outline"></ion-icon
               ></span>
@@ -37,14 +37,17 @@
             </a>
           </li>
           <li>
-            <a href="/adminBarters">
+            <a href="adminBarters">
               <span class="icon"
                 ><ion-icon name="swap-vertical-outline"></ion-icon
               ></span>
               <span class="title">Intercambios</span>
             </a>
           </li>
+          <li>
+		  </li>
         </ul>
+        <a id="back" class="back" th:href="@{/admin/}">Página Principal</a>
       </div>
 
       <!--Main-->
@@ -57,7 +60,7 @@
           <!--Search-->
           <div class="search">
             <label for="">
-              <input type="text" placeholder="Buscar ____" />
+              <input type="text" placeholder="Buscar usuarios" />
               <ion-icon name="search-outline"></ion-icon>
             </label>
           </div>
@@ -77,20 +80,24 @@
             <table>
               <thead>
                 <tr>
-                  <td>Nombre</td>
+                  <td>Id</td>
                   <td>Correo</td>
                   <td>Fecha Inicio</td>
                   <td>Número de ofertas</td>
                   <td>Calificación</td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Usuario 1</td>
-                  <td>user1@barter.com</td>
-                  <td>02/10/2003</td>
-                  <td>1</td>
-                  <td>5</td>
+                <tr th:each="usuario : ${listaUsuarios}">
+                  <td th:text="${usuario.id}">1</td>
+                  <td th:text="${usuario.email}">user1@barter.com</td>
+                  <td th:text="${usuario.fecha_alta}">02/10/2003</td>
+                  <td th:text="${usuario.num_ofertas}">1</td>
+                  <td th:text="${usuario.calificacion}">1</td>
+                  <td><a href="#" th:href="@{/admin/editUser/{id}(id=${usuario.id})}">Editar</a></td>
+                  <td><a href="#" th:href="@{/admin/deleteUser/{id}(id=${usuario.id})}">Borrar</a></td>
                 </tr>
               </tbody>
             </table>
@@ -108,39 +115,6 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script>
-      //Menu toggle
-      let toggle = document.querySelector(".toggle");
-      let navigation = document.querySelector(".navigation");
-      let main = document.querySelector(".main");
-      let logo = document.querySelector(".logo");
-      let isSidebarOpen = localStorage.getItem('sidebarOpen') === "true";
-
-      //Opens or closes the sidebar when loading the page
-      if (isSidebarOpen || isSidebarOpen === null) {
-        navigation.classList.remove("active");
-        logo.classList.remove("hide-logo");
-        main.classList.remove("active");
-      } else {
-        navigation.classList.add("active");
-        logo.classList.add("hide-logo");
-        main.classList.add("active");
-      }
-
-      toggle.onclick = function () {
-        navigation.classList.toggle("active");
-        logo.classList.toggle("hide-logo");
-        main.classList.toggle("active");
-        localStorage.setItem('sidebarOpen', !navigation.classList.contains("active"));
-      };
-
-      let list = document.querySelectorAll(".navigation li");
-      function activeLink() {
-        list.forEach((item) => item.classList.remove("hovered"));
-        this.classList.add("hovered");
-      }
-
-      list.forEach((item) => item.addEventListener("mouseover", activeLink));
-    </script>
+    <script src="/js/adminScript.js"></script>
   </body>
 </html>

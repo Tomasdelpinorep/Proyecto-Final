@@ -45,6 +45,7 @@ form textarea{
 
 .btnUpload{
     text-align: center;
+    width: fit-content;
     color: white !important;
     font-weight: 600;
     background: linear-gradient(to right, #5725E5, #7743DB);
@@ -52,10 +53,6 @@ form textarea{
     border: none !important;
     border-radius: 5%;
     padding: 0 10px;
-    width: 75px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .btnUpload:hover{

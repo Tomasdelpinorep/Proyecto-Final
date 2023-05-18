@@ -45,6 +45,7 @@
             </a>
           </li>
         </ul>
+        <a class="back hidden" href="">Página Principal</a>
       </div>
 
       <!--Main-->
@@ -115,6 +116,7 @@
       let main = document.querySelector(".main");
       let logo = document.querySelector(".logo");
       let isSidebarOpen = localStorage.getItem('sidebarOpen') === "true";
+      let back = document.querySelector(".back");
       toggle.addEventListener("click",toggled);
 
       //Opens or closes the sidebar when loading the page
@@ -122,12 +124,14 @@
           navigation.classList.remove("active"); //removing active makes the sidebar open
           logo.classList.remove("hide-logo");
           main.classList.remove("active");
+          back.classList.remove("hidden");
       } else {
           main.style.transitionDuration="0s";
           navigation.style.transitionDuration = '0s';
           navigation.classList.add("active"); //adding active makes the sidebar close
           logo.classList.add("hide-logo");
           main.classList.add("active");
+          back.classList.add("hidden");
       }
 
       toggle.onclick = function () {
@@ -135,6 +139,7 @@
           logo.classList.toggle("hide-logo");
           main.classList.toggle("active");
           localStorage.setItem('sidebarOpen', !navigation.classList.contains("active"));
+          back.classList.toggle("hidden");
       };
 
       let list = document.querySelectorAll(".navigation li");

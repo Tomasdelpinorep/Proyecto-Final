@@ -7,7 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-@Entity @Table(name = "oferta")
+@Entity
 public class Oferta {
 
 	@Id
@@ -34,6 +36,7 @@ public class Oferta {
 	private String nombre,descripcion,estado;
 	
 	@OneToOne
+	 @OnDelete(action = OnDeleteAction.CASCADE)
 	public Usuario remitente;
 	
 	//Atributos para coches
