@@ -1,7 +1,4 @@
 package com.salesianostriana.dam.controllers;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,7 +66,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/deleteUser/{id}")
-	public String delete(@PathVariable long id,HttpSession session) {
+	public String delete(@PathVariable long id) {
 		usuarioService.deleteById(id);
 		return "redirect:/admin/adminUsers";
 	}

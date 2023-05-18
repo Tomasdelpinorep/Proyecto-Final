@@ -11,6 +11,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
 	Optional<Usuario> findFirstByUsername(String username);
 	
-	 @Query("SELECT COUNT(*) FROM Oferta o WHERE o.remitente.id = :usuarioId")
-    int num_ofertas(@Param("usuarioId") long usuarioId);
+	 @Query("SELECT COUNT(o) FROM Oferta o WHERE o.remitente.id = :usuarioId")
+    long num_ofertas(@Param("usuarioId") long usuarioId);
 }

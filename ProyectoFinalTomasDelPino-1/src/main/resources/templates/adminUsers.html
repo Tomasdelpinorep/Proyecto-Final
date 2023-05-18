@@ -44,7 +44,10 @@
               <span class="title">Intercambios</span>
             </a>
           </li>
+          <li>
+		  </li>
         </ul>
+        <a id="back" class="back" th:href="@{/admin/}">Página Principal</a>
       </div>
 
       <!--Main-->
@@ -112,39 +115,6 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script>
-      //Menu toggle
-      let toggle = document.querySelector(".toggle");
-      let navigation = document.querySelector(".navigation");
-      let main = document.querySelector(".main");
-      let logo = document.querySelector(".logo");
-      let isSidebarOpen = localStorage.getItem('sidebarOpen') === "true";
-
-      //Opens or closes the sidebar when loading the page
-      if (isSidebarOpen || isSidebarOpen === null) {
-        navigation.classList.remove("active");
-        logo.classList.remove("hide-logo");
-        main.classList.remove("active");
-      } else {
-        navigation.classList.add("active");
-        logo.classList.add("hide-logo");
-        main.classList.add("active");
-      }
-
-      toggle.onclick = function () {
-        navigation.classList.toggle("active");
-        logo.classList.toggle("hide-logo");
-        main.classList.toggle("active");
-        localStorage.setItem('sidebarOpen', !navigation.classList.contains("active"));
-      };
-
-      let list = document.querySelectorAll(".navigation li");
-      function activeLink() {
-        list.forEach((item) => item.classList.remove("hovered"));
-        this.classList.add("hovered");
-      }
-
-      list.forEach((item) => item.addEventListener("mouseover", activeLink));
-    </script>
+    <script src="/js/adminScript.js"></script>
   </body>
 </html>
