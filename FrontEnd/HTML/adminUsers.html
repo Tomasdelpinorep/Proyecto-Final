@@ -45,7 +45,7 @@
             </a>
           </li>
         </ul>
-        <a id="back" class="back" href="">Página Principal</a>
+        <a class="back hidden" href="">Página Principal</a>
       </div>
 
       <!--Main-->
@@ -124,20 +124,22 @@
           navigation.classList.remove("active"); //removing active makes the sidebar open
           logo.classList.remove("hide-logo");
           main.classList.remove("active");
+          back.classList.remove("hidden");
       } else {
           main.style.transitionDuration="0s";
           navigation.style.transitionDuration = '0s';
           navigation.classList.add("active"); //adding active makes the sidebar close
           logo.classList.add("hide-logo");
           main.classList.add("active");
+          back.classList.add("hidden");
       }
 
       toggle.onclick = function () {
           navigation.classList.toggle("active");
           logo.classList.toggle("hide-logo");
           main.classList.toggle("active");
-          back.classList.toggle("hide");
           localStorage.setItem('sidebarOpen', !navigation.classList.contains("active"));
+          back.classList.toggle("hidden");
       };
 
       let list = document.querySelectorAll(".navigation li");
