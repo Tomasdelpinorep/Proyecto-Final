@@ -29,9 +29,7 @@ INSERT INTO Categoria (id,nombre, descripcion) VALUES(10,'Servicios', 'Categorí
 
 --INSERTAR OfertaS DE COCHES
 
-INSERT INTO Oferta (remitente_id, valor_estimado, cat_id, nombre, descripcion, estado, remitente_busca_cat_id, remitente_busca, km, consumo, num_puertas) VALUES (1, 15000.50, 1, 'Ford Mustang', 'Coche deportivo con acabados de lujo', 'Buen estado', 1, 'Chevrolet Camaro', 15000, 9.5, 2);
-
-INSERT INTO Oferta (remitente_id, valor_estimado, cat_id, nombre, descripcion, estado, remitente_busca_cat_id, remitente_busca, km, consumo, num_puertas) VALUES (1, 15000.50, 1, 'Ford Mustang', 'Coche deportivo con acabados de lujo', 'Buen estado', 1, 'Chevrolet Camaro', 15000, 9.5, 2)
+INSERT INTO Oferta (remitente_id, valor_estimado, cat_id, nombre, descripcion, estado, remitente_busca_cat_id, remitente_busca, km, consumo, num_puertas, imageURL) VALUES (1, 15000.50, 1, 'Ford Mustang', 'Coche deportivo con acabados de lujo', 'Buen estado', 1, 'Chevrolet Camaro', 15000, 9.5, 2, 'https://image.hmn.com/d9wqG5YwxFmhgeI8j8D0Ut53Zqs=/820x545/uimage/105289211.jpg')
 
 INSERT INTO Oferta (remitente_id, valor_estimado, cat_id, nombre, descripcion, estado, remitente_busca_cat_id, remitente_busca, km, consumo, num_puertas) VALUES (1, 12000.00, 1, 'Volkswagen Golf', 'Coche compacto y eficiente', 'Decente', 1, 'Ford Focus', 85000, 5.8, 4)
 

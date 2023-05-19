@@ -27,6 +27,9 @@ public class Oferta {
 	private double valorEstimado;
 	private String remitenteBusca;
 	
+	@Column(name = "imageURL", columnDefinition = "VARCHAR(255) DEFAULT null")
+	private String imageURL;
+	
 	@ManyToOne
 	private Categoria remitenteBuscaCat;
 	

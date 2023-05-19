@@ -50,31 +50,33 @@
 		</div>
 	</nav>
 
-	<div class="container-fluid p-0 d-flex justify-content-center align-content-center">
+	<div th:each="offer: ${offerListById}" class="container-fluid p-0 d-flex justify-content-center align-content-center">
 
 		<!-- HTML para un producto -->
-		<div class="row d-flex justify-content-center align-content-center mt-5 gy-3">
-			<div class="col-md-4 col-12">
-				<div class="image-container">
-					<img src="../recursos/bici.jpg" alt="bicicleta">
+			<div class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+				<div class="col-md-4 col-12">
+					<div class="image-container">
+						<img src="https://image.hmn.com/d9wqG5YwxFmhgeI8j8D0Ut53Zqs=/820x545/uimage/105289211.jpg" alt="Coche de la oferta">
+						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-8 col-12">
-				<div class="info d-flex flex-column">
-					<h3>Nombre del producto</h3>
-					<p>Descripción del producto</p>
-					<div class="attributes d-flex flex-row justify-content-between mt-auto">
-						<p>Atributo 1</p>
-						<p>Atributo 2</p>
-						<p>Atributo 3</p>
+				<div class="col-md-8 col-12">
+					<div class="info d-flex flex-column">
+						<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+						<p th:text="${offer.descripcion}">Descripción del producto</p>
+						<div class="attributes d-flex flex-row justify-content-between mt-auto">
+							<p th:text="${offer.km}">Atributo 1</p>
+							<p th:text="${offer.numPuertas}">Atributo 2</p>
+							<p th:text="${offer.consumo}">Atributo 3</p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		<!-- ***************************************************************************** -->
 	</div>
 
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="../JS/offerPageScript.js"></script>
 </body>
 
 </html>

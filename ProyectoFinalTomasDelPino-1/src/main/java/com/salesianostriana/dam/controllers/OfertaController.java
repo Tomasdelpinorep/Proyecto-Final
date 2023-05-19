@@ -17,7 +17,6 @@ public class OfertaController {
 	@GetMapping("/adminOffers")
 	public String listarOfertas (Model model) {
 		model.addAttribute("listaOfertas",service.findAll());
-		
 		return "adminOffers";
 	}
 	

@@ -1,16 +1,18 @@
 /* ******************************************************************************** */
-
 .row{
     width: 50%;
 }
 
 .image-container{
     width: 100%;
-    min-width: 180px;
+    min-width: 220px;
     height: 150px;
     max-width: 200px;
     margin: auto;
     overflow: hidden;
+    position: relative;
+  border-radius: 5%;
+  overflow: hidden;
 }
 
 img{
@@ -39,4 +41,44 @@ img{
     .row{
         width: 75%;
     }
+}
+
+.icon-background{
+width: 100%;
+height: 100%;
+background: linear-gradient(to right, #5725e5, #7743db) !important;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.icon{
+	color:white;
+	font-size: 5rem;
+}
+
+.btn-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .btn-overlay {
+  opacity: 1;
+}
+
+.barter-button{
+  box-shadow: 0 0 75px 40px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to right, #5725e5, #7743db);
+  outline: 1px solid black !important;
+  border: none !important;
+}
+
+.barter-button:hover{
+  font-size: 1.05rem;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out !important;
 }
