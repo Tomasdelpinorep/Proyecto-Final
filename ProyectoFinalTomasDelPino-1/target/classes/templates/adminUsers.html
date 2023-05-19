@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="../CSS/adminView.css"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="">
+              <span class="logo">Barter</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminUsers">
+              <span class="icon"
+                ><ion-icon name="person-outline"></ion-icon
+              ></span>
+              <span class="title">Usuarios</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminOffers">
+              <span class="icon"
+                ><ion-icon name="grid-outline"></ion-icon
+              ></span>
+              <span class="title">Ofertas</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminBarters">
+              <span class="icon"
+                ><ion-icon name="swap-vertical-outline"></ion-icon
+              ></span>
+              <span class="title">Intercambios</span>
+            </a>
+          </li>
+          <li>
+		  </li>
+        </ul>
+        <a id="back" class="back" th:href="@{/admin/}">Página Principal</a>
+      </div>
+
+      <!--Main-->
+
+      <div class="main">
+        <div class="topbar">
+          <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+          <!--Search-->
+          <div class="search">
+            <label for="">
+              <input type="text" placeholder="Buscar usuarios" />
+              <ion-icon name="search-outline"></ion-icon>
+            </label>
+          </div>
+          <!--User Image-->
+          <div class="user">
+            <img src="../cat lisa.png" alt="Cat Lisa" />
+          </div>
+        </div>
+
+        <!--Table-->
+        <div class="details">
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>Usuarios</h2>
+              <a href="#" class="btn">Ver Todos</a>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <td>Id</td>
+                  <td>Correo</td>
+                  <td>Fecha Inicio</td>
+                  <td>Número de ofertas</td>
+                  <td>Calificación</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="usuario : ${listaUsuarios}">
+                  <td th:text="${usuario.id}">1</td>
+                  <td th:text="${usuario.email}">user1@barter.com</td>
+                  <td th:text="${usuario.fecha_alta}">02/10/2003</td>
+                  <td th:text="${usuario.num_ofertas}">1</td>
+                  <td th:text="${usuario.calificacion}">1</td>
+                  <td><a href="#" th:href="@{/admin/editUser/{id}(id=${usuario.id})}">Editar</a></td>
+                  <td><a href="#" th:href="@{/admin/deleteUser/{id}(id=${usuario.id})}">Borrar</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="/js/adminScript.js"></script>
+  </body>
+</html>

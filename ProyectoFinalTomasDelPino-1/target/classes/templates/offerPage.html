@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Offer Page</title>
+	<link rel="stylesheet" href="../css/offerPage.css" />
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<script src="https://kit.fontawesome.com/bd1f8e1340.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+		crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg" id="my-navbar">
+		<div class="container-fluid">
+			<a class="navbar-brand logo p-0" th:href="@{/main}">Barter</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active text-center" aria-current="page" href="#">Sube una oferta</a>
+					</li>
+					<li class="nav-item">
+						<div class="dropdown d-flex justify-content-center">
+							<button th:if="${#authorization.expression('isAuthenticated()')}"
+								class="btn btn-secondary dropdown-toggle nav-link" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+								<span sec:authentication="name">
+							</button>
+
+							<ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+								<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+								<li>
+									<a class="btn dropdown-item"
+										href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+							</ul>
+
+							<a th:unless="${#authorization.expression('isAuthenticated()')}" id="logInButton"
+								class="nav-link text-center" th:href="@{/main}">Log In</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- HTML para COCHES -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 1}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-car"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.km} + ' Km' + ' | '">Atributo 1</p>
+						<p th:text="${offer.numPuertas} + ' puertas' + ' | '">Atributo 2</p>
+						<p th:text="${offer.consumo} + 'L/100Km' + ' | '">Atributo 3</p>
+						<p th:text="${offer.remitente.calificacion} + '☆'">Atributo 3</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ***************************************************************************** -->
+	</div>
+
+	<!-- HTML para MOTOS -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 2}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-motorcycle"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.km} + ' Km' + ' | '">Atributo 1</p>
+						<p th:text="${offer.cilindrada} + ' puertas' + ' | '">Atributo 2</p>
+						<p th:text="${offer.consumo} + 'L/100Km' + ' | '">Atributo 3</p>
+						<p th:text="${offer.remitente.calificacion} + '☆'">Atributo 3</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para MODA -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 3}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-shirt"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.talla} + ' | '" >Atributo 1</p>
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para INMOBILIARIA -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 4}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-house"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.m2} + ' m²' + ' | '">Atributo 1</p>
+						<p th:text="${offer.direccion} + ' | '">Atributo 2</p>
+						<p th:text="${offer.numBanos} + 'L/100Km' + ' | '">Atributo 3</p>
+						<p th:text="${offer.numHabitaciones} + 'L/100Km'+ ' | '">Atributo 3</p>
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para AUDIO E IMAGEN -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 5}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-camera"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para VIDEOJUEGOS -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 6}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-gamepad"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para INFORMÁTICA -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 7}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-computer"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para BICICLETAS -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 8}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-bicycle"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.tipoBici}">Atributo 1</p>
+						<p th:text="${offer.numMarchas} + ' marchas'">Atributo 2</p>
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para DEPORTE -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 9}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-sharp fa-solid fa-dumbbell"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+	
+	<!-- HTML para SERVICIOS -->
+	<div th:each="offer: ${offerListById}"
+		class="container-fluid p-0 d-flex justify-content-center align-content-center">
+		<div th:if="${offer.cat.id == 10}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div class="col-md-4 col-12">
+				<div class="image-container">
+					<div th:if="${offer.imageURL == null}" class="icon-background">
+						<i class="icon fa-solid fa-hammer"></i>
+					</div>
+					<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
+					<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-12">
+				<div class="info d-flex flex-column">
+					<h3 th:text="${offer.nombre}">Nombre del producto</h3>
+					<p th:text="${offer.descripcion}">Descripción del producto</p>
+					<div class="attributes d-flex flex-row justify-content-between mt-auto">
+						<p th:text="'Soy: ' + ${offer.titulacion} + ' | '">Atributo 1</p>
+						<p th:text="${offer.duracion} + ' minutos' + ' | '">Atributo 2</p>
+						<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ***************************************************************************** -->
+
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="../JS/offerPageScript.js"></script>
+</body>
+
+</html>

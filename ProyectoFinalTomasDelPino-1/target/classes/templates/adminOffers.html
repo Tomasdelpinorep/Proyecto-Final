@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="../CSS/adminView.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="">
+              <span class="logo">Barter</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminUsers">
+              <span class="icon"
+                ><ion-icon name="person-outline"></ion-icon
+              ></span>
+              <span class="title">Usuarios</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminOffers">
+              <span class="icon"
+                ><ion-icon name="grid-outline"></ion-icon
+              ></span>
+              <span class="title">Ofertas</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminBarters">
+              <span class="icon"
+                ><ion-icon name="swap-vertical-outline"></ion-icon
+              ></span>
+              <span class="title">Intercambios</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!--Main-->
+
+      <div class="main">
+        <div class="topbar">
+          <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+          <!--Search-->
+          <div class="search">
+            <label for="">
+              <input type="text" placeholder="Buscar ofertas" />
+              <ion-icon name="search-outline"></ion-icon>
+            </label>
+          </div>
+          <!--User Image-->
+          <div class="user">
+            <img src="../cat lisa.png" alt="Cat Lisa" />
+          </div>
+        </div>
+
+        <!--Table-->
+        <div class="details">
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>Ofertas</h2>
+              <a href="#" class="btn">Ver Todos</a>
+            </div>
+            <table>
+              <thead>
+                <tr>
+				  <td>Id</td>
+                  <td>Nombre</td>
+                  <td>Categoría</td>
+                  <td>Publicante</td>
+                  <td>Valor Estimado</td>
+                  <td>Estado</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="oferta : ${listaOfertas}">
+				  <td th:text="${oferta.id}">1</td>
+                  <td th:text="${oferta.nombre}">Ejemplo 1</td>
+                  <td th:text="${oferta.cat.nombre}">Coches</td>
+                  <td th:text="${oferta.remitente.id}">Coches</td>
+                  <td th:text="${oferta.valorEstimado}">1€</td>
+                  <td>Publicado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script>
+      //Menu toggle
+      let toggle = document.querySelector(".toggle");
+      let navigation = document.querySelector(".navigation");
+      let main = document.querySelector(".main");
+      let logo = document.querySelector(".logo");
+      let isSidebarOpen = localStorage.getItem("sidebarOpen") === "true";
+
+      //Opens or closes the sidebar when loading the page
+      if (isSidebarOpen || isSidebarOpen === null) {
+        navigation.classList.remove("active");
+        logo.classList.remove("hide-logo");
+        main.classList.remove("active");
+      } else {
+        navigation.classList.add("active");
+        logo.classList.add("hide-logo");
+        main.classList.add("active");
+      }
+
+      toggle.onclick = function () {
+        navigation.classList.toggle("active");
+        logo.classList.toggle("hide-logo");
+        main.classList.toggle("active");
+        localStorage.setItem(
+          "sidebarOpen",
+          !navigation.classList.contains("active")
+        );
+      };
+
+      let list = document.querySelectorAll(".navigation li");
+      function activeLink() {
+        list.forEach((item) => item.classList.remove("hovered"));
+        this.classList.add("hovered");
+      }
+
+      list.forEach((item) => item.addEventListener("mouseover", activeLink));
+    </script>
+  </body>
+</html>
