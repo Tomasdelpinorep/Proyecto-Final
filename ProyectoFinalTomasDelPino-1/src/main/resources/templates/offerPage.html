@@ -24,7 +24,8 @@
 <body>
 	<nav class="navbar navbar-expand-lg" id="my-navbar">
 		<div class="container-fluid">
-			<a class="navbar-brand logo p-0" th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{/}">Barter</a>
+			<a class="navbar-brand logo p-0" th:unless="${#authorization.expression('isAuthenticated()')}"
+				th:href="@{/}">Barter</a>
 			<a class="navbar-brand logo p-0" th:href="@{/admin/}"
 				th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Barter</a>
 			<a class="navbar-brand logo p-0" th:href="@{/user/}"
@@ -107,8 +108,8 @@
 
 			<!-- MODAL - EXCHANGE FORM BEGGINING -->
 
-			<form th:action="@{/offers/successPage}" method="POST" th:id="'submitBarterForm' + ${offer.id}" 
-			th:data-offerId="${offer.id}" onsubmit="submitForm(event, this.getAttribute('data-offerid'))">
+			<form th:action="@{/offers/successPage}" method="POST" th:id="'submitBarterForm' + ${offer.id}"
+				th:data-offerId="${offer.id}" onsubmit="submitForm(event, this.getAttribute('data-offerid'))">
 				<div class="modal fade" th:id="'exchangeForm' + ${offer.id}" tabindex="-100"
 					aria-labelledby="exchangeFormLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
@@ -132,52 +133,53 @@
 									<option th:each="ofertaPublicada : ${ofertasPublicadas}"
 										th:if="${not ofertaPublicada.pendiente}"
 										th:unless="${ofertaPublicada.remitente.id == offer.remitente.id}"
-										 th:text="${ofertaPublicada.nombre}" th:value="${ofertaPublicada.id}"></option>
+										th:text="${ofertaPublicada.nombre}" th:value="${ofertaPublicada.id}"></option>
 								</select>
 								<input type="hidden" th:value="${offer.cat.id}" name="redirectId">
+								<input type="hidden" th:value="${offer.id}" name="publishedOfferId">
 							</div>
 							<div class="modal-footer d-flex justify-content-center">
 								<button type="submit" class="btn btn-primary throw-barter-button"
-								 data-bs-dismiss="modal">Mandar oferta</button>
+									data-bs-dismiss="modal">Mandar oferta</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</form>
-			
+
 			<!-- MODAL - EXCHANGE FORM END -->
-			
+
 			<!-- SUCCESS MESSAGE MODAL -->
 
-				<div class="modal fade " id="successModal" tabindex="-1"
-					aria-labelledby="successModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content bg-success text-center">
-							<div class="modal-header text-white d-flex justify-content-center">
-								<h5 class="modal-title text-center" id="successModalLabel">¡Enhorabuena!</h5>
-							</div>
-							<div class="modal-body text-white text-center">
-								<p>Has lanzado la oferta con éxito.</p>
-							</div>
+			<div class="modal fade " id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content bg-success text-center">
+						<div class="modal-header text-white d-flex justify-content-center">
+							<h5 class="modal-title text-center" id="successModalLabel">¡Enhorabuena!</h5>
+						</div>
+						<div class="modal-body text-white text-center">
+							<p>Has lanzado la oferta con éxito.</p>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<!-- FAIL MESSAGE MODAL -->
+			<!-- FAIL MESSAGE MODAL -->
 
-				<div class="modal fade " id="failureModal" tabindex="-1"
-					aria-labelledby="successModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content bg-danger text-center">
-							<div class="modal-header text-white d-flex justify-content-center">
-								<h5 class="modal-title text-center" id="successModalLabel">Error</h5>
-							</div>
-							<div class="modal-body text-white text-center">
-								<p>Debes lanzar una oferta válida.</p>
-							</div>
+			<div class="modal fade " id="failureModal" tabindex="-1" aria-labelledby="successModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content bg-danger text-center">
+						<div class="modal-header text-white d-flex justify-content-center">
+							<h5 class="modal-title text-center" id="successModalLabel">Error</h5>
+						</div>
+						<div class="modal-body text-white text-center">
+							<p>Debes lanzar una oferta válida.</p>
 						</div>
 					</div>
 				</div>
+			</div>
 
 			<!-- ***************************************************************************** -->
 		</div>
@@ -191,8 +193,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-motorcycle"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -220,8 +232,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-shirt"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -229,7 +251,7 @@
 						<h3 th:text="${offer.nombre}">Nombre del producto</h3>
 						<p th:text="${offer.descripcion}">Descripción del producto</p>
 						<div class="attributes d-flex flex-row justify-content-between mt-auto">
-							<p th:text="${offer.talla} + ' | '">Atributo 1</p>
+							<p th:text="${offer.talla}">Atributo 1</p>
 							<p th:text="${offer.remitente.calificacion} + '☆'">Calificación del usuario</p>
 						</div>
 					</div>
@@ -247,8 +269,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-house"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -277,8 +309,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-camera"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -304,8 +346,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-gamepad"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -330,8 +382,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-computer"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -356,8 +418,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-bicycle"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -384,8 +456,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-sharp fa-solid fa-dumbbell"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">
@@ -410,8 +492,18 @@
 						<div th:if="${offer.imageURL == null}" class="icon-background">
 							<i class="icon fa-solid fa-hammer"></i>
 						</div>
-						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Coche de la oferta">
-						<button class="btn btn-primary btn-overlay barter-button">Intercambiar</button>
+						<img th:unless="${offer.imageURL == null}" th:src="${offer.imageURL}" alt="Moto de la oferta">
+
+						<form th:unless="${#authorization.expression('isAuthenticated()')}" th:action="@{/}"
+							method="POST">
+							<button class="btn btn-primary btn-overlay btn-danger" type="submit">Logeate para
+								intercambiar</button>
+						</form>
+
+						<button th:if="${#authorization.expression('isAuthenticated()')}" data-bs-toggle="modal"
+							th:data-bs-target="'#exchangeForm' + ${offer.id}"
+							class="btn btn-primary btn-overlay barter-button" type="submit">Intercambiar</button>
+
 					</div>
 				</div>
 				<div class="col-md-8 col-12 text-center">

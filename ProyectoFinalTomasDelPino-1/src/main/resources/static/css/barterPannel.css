@@ -1,0 +1,46 @@
+h4 {
+    font-weight: 700;
+}
+
+.barter-table {
+    border: 1px solid black;
+    vertical-align: middle;
+}
+
+.barter-table thead {
+    background: linear-gradient(to right, #5725e5 25%, #7743db 100%);
+    color: white;
+    height: 50px;
+}
+
+.barter-table tbody {
+    background-color: white;
+
+}
+
+.barter-table td {
+    height: 50px;
+}
+
+.reverse-gradient thead {
+    background: linear-gradient(to right, #7743db 25%, #5725e5 100%) !important;
+}
+
+:root {
+    --main-gradient: linear-gradient(to right, #5725e5 25%, #7743db 100%);
+    --white: #fff;
+    --gray: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+    --purple1: #5725e5;
+    --purple2: #7743db;
+}
+
+
+a,
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+
