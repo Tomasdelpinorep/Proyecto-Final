@@ -1,7 +1,6 @@
 package com.salesianostriana.dam.models;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class Categoria {
 
 	@Id
-	@GeneratedValue
 	private long id;
 	
 	private String nombre,descripcion;

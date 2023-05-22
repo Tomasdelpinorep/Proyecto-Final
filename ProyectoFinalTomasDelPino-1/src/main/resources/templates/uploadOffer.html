@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Offer Upload</title>
     <link rel="stylesheet" href="../CSS/productUpload.css">
     <link rel="stylesheet" href="../CSS/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet">
@@ -32,12 +32,13 @@
                     </li>
                     <li class="nav-item flex-grow-1 text-center">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle nav-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                              Admin
+                            <button class="btn btn-secondary dropdown-toggle nav-link" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="btn dropdown-item" 
-                                href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+                                <li><a class="btn dropdown-item"
+                                        href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
                             </ul>
                         </div>
                     </li>
@@ -52,163 +53,185 @@
                 <div class="col center-items">
                     <p class="logo logo-background">Barter</p>
 
-                    <!-- FORMULARIO BASE -->
-                    <form class="visible" id="form1" action="">
-                        <label class="form-label" for="product-name">Nombre del producto:*</label>
-                        <input required oninvalid="showAlert()" class="mb-3 form-control" type="text" id="product-name" name="product-name"><br>
-                        <label for="product-description">Descripción:*</label>
-                        <textarea required oninvalid="showAlert()" class="mb-3 form-control" id="product-description"
-                            name="product-description"></textarea><br>
+                    <form method="POST" th:action="@{/offers/offerUploaded}" id="form">
 
-                        <label class="form-label" for="product-category">Categoría:*</label>
-                        <select required class="mb-3 form-control" id="categoria" name="categoria">
-                            <option value=""> --- </option>
-                            <option value="Coches">Coches</option>
-                            <option value="Motos">Motos</option>
-                            <option value="Moda">Moda</option>
-                            <option value="Inmobiliaria">Inmobiliaria</option>
-                            <option value="Audio_imagen">Audio e Imagen</option>
-                            <option value="Videojuegos">Videojuegos</option>
-                            <option value="Informatica">Informática</option>
-                            <option value="Bicis">Bicicletas</option>
-                            <option value="Deporte">Deporte</option>
-                            <option value="Servicios">Servicios</option>
-                        </select><br>
+                        <!-- FORMULARIO BASE -->
+                        <div class="visible" id="form1">
+                            <label class="form-label" for="nombre">Nombre del producto:*</label>
+                            <input required oninvalid="showAlert()" class="mb-3 form-control" type="text" id="nombre"
+                                name="nombre"><br>
+                            <label for="product-description">Descripción:*</label>
+                            <textarea required oninvalid="showAlert()" class="mb-3 form-control"
+                                id="product-description" name="product-description"></textarea><br>
 
-                        <label class="form-label" for="product-image">Imagen:</label>
-                        <input class="mb-3 form-control" type="file" id="product-image"
-                            name="product-image"><br>
-                        <div class="bottom-line d-flex justify-content-between">
-                            <input id="nextButton" type="submit" class="btnUpload" value=Siguiente>
-                            <p class="alert hidden">Debe rellenar todos los campos marcados con *</p>
+                            <label class="form-label" for="categoria">Categoría:*</label>
+                            <select required class="mb-3 form-control" id="categoria" name="categoria">
+                                <option value=""> --- </option>
+                                <option value="1">Coches</option>
+                                <option value="2">Motos</option>
+                                <option value="3">Moda</option>
+                                <option value="4">Inmobiliaria</option>
+                                <option value="5">Audio e Imagen</option>
+                                <option value="6">Videojuegos</option>
+                                <option value="7">Informática</option>
+                                <option value="8">Bicicletas</option>
+                                <option value="9">Deporte</option>
+                                <option value="10">Servicios</option>
+                            </select><br>
+
+                            <label class="form-label" for="product-image">Imagen:</label>
+                            <input class="mb-3 form-control" type="url" id="product-image" name="product-image"><br>
+                            <div class="bottom-line d-flex justify-content-between">
+                                <input id="nextButton" type="button" class="btnUpload" value=Siguiente>
+                                <p class="alert hidden">Debe rellenar todos los campos marcados con *</p>
+                            </div>
                         </div>
+
+                        <!-- FORMULARIOS ESPECÍFICOS-->
+                        <div class="hidden" id="form2">
+
+                            <div id="form2_coches" class="hidden">
+                                <label class="form-label" for="km">Kilómetros:</label>
+                                <input class="mb-3 form-control" type="number" id="km" name="km" min="1" max="999999"
+                                    step="100"><br>
+                                <label class="form-label" for="puertas">Puertas:</label>
+                                <input required class="mb-3 form-control" type="number" id="puertas" name="puertas"
+                                    min="3" max="7" step="1"><br>
+                                <label class="form-label" for="consumo">Consumo:</label>
+                                <input class="mb-3 form-control" type="number" step="0.1" min="1.0" id="consumo"
+                                    name="consumo" placeholder="5.8"><br>
+                            </div>
+
+                            <div id="form2_motos" class="hidden">
+                                <label class="form-label" for="kmMotos">Kilómetros:</label>
+                                <input class="mb-3 form-control" type="number" id="kmMotos" name="kmMotos" min="1" max="999999"
+                                    step="100"><br>
+                                <label class="form-label" for="cilindrada">Cilindrada:</label>
+                                <select class="mb-3 form-control" id="cilindrada" name="cilindrada">
+                                    <option value=""> --- </option>
+                                    <option value="50">50</option>
+                                    <option value="125">125</option>
+                                    <option value="250">250</option>
+                                    <option value="300">300</option>
+                                    <option value="500">500</option>
+                                    <option value="900">900</option>
+                                    <option value="1000">1000</option>
+                                </select><br>
+                                <label class="form-label" for="consumo">Consumo:</label>
+                                <input class="mb-3 form-control" type="number" step="0.1" min="1.0" id="consumo"
+                                    name="consumo" placeholder="5.8"><br>
+                            </div>
+
+                            <div id="form2_moda" class="hidden">
+                                <label class="form-label" for="talla">Talla:</label>
+                                <select class="mb-3 form-control" id="talla" name="talla">
+                                    <option value="0"> --- </option>
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select><br>
+                            </div>
+
+
+                            <div id="form2_inmo" class="hidden">
+                                <label class="form-label" for="m2">Metros Cuadrados:</label>
+                                <input class="mb-3 form-control" type="number" id="m2" name="m2" min="1" max="999999"
+                                    step="10"><br>
+                                <label class="form-label" for="banos">Baños:</label>
+                                <input class="mb-3 form-control" type="number" id="banos" name="banos" min="1" max="99"
+                                    step="1"><br>
+                                <label class="form-label" for="consumo">Habitaciones:</label>
+                                <input class="mb-3 form-control" type="number" step="1" min="1" id="habitaciones"
+                                    name="habitaciones" placeholder="5.8"><br>
+                                <label for="direccion" class="form-label">Dirección:</label>
+                                <input class="mb-3 form-control" type="text" name="direccion" id="direccion">
+                            </div>
+
+                            <div id="form2_bicis" class="hidden">
+                                <label class="form-label" for="tipo_bici">Tipo de bici:</label>
+                                <select class="mb-3 form-control" id="tipo_bici" name="tipo_bici">
+                                    <option value="0"> --- </option>
+                                    <option value="Montana">Montaña</option>
+                                    <option value="Carretera">Carretera</option>
+                                </select><br>
+                                <label class="form-label" for="num_marchas">Número de marchas:</label>
+                                <input class="mb-3 form-control" type="number" id="num_marchas" name="num_marchas"
+                                    min="1" max="20" step="1"><br>
+                            </div>
+
+
+                            <div id="form2_servicios" class="hidden">
+                                <label class="form-label" for="tiempo">Duración del servicio (minutos):</label>
+                                <input class="mb-3 form-control" type="number" id="tiempo" name="tiempo" min="5"
+                                    max="999" step="5"><br>
+                                <label class="form-label" for="calificacion">Tu calificación para ofrecer el
+                                    servicio:</label>
+                                <input class="mb-3 form-control" type="text" id="calificacion" name="calificacion"><br>
+                            </div>
+
+                            <div class="bottom-line d-flex justify-content-between">
+                                <input id="nextButton2" type="button" class="btnUpload" value=Siguiente>
+                            </div>
+                        </div>
+                        <!-- FORMULARIO FINAL -->
+                        <div class="hidden" id="form3">
+                            <label class="form-label" for="valor_estimado">Valor Estimado Del Producto:*</label>
+                            <input required oninvalid="showAlert()" class="mb-3 form-control" type="number"
+                                id="valor_estimado" name="valor_estimado" min="1"><br>
+
+                            <label class="form-label" for="remitente_busca_cat">Busco:*</label>
+                            <select required oninvalid="showAlert()" class="mb-3 form-control" id="remitente_busca_cat"
+                                name="remitente_busca_cat">
+                                <option value=""> --- </option>
+                                <option value="Coches">Coches</option>
+                                <option value="Motos">Motos</option>
+                                <option value="Moda">Moda</option>
+                                <option value="Inmobiliaria">Inmobiliaria</option>
+                                <option value="Cine">Cine</option>
+                                <option value="Videojuegos">Videojuegos</option>
+                                <option value="Ordenadores">Ordenadores</option>
+                                <option value="Móviles">Móviles</option>
+                                <option value="Bicis">Bicis</option>
+                                <option value="Deporte">Deporte</option>
+                            </select><br>
+
+                            <label for="remitente_busca">Descripción de lo que busco:</label>
+                            <textarea class="mb-3 form-control" id="remitente_busca"
+                                name="remitente_busca"></textarea><br>
+
+                            <div class="bottom-line d-flex justify-content-between">
+                                <input id="uploadOfferButton" type="submit" class="btnUpload" value="Subir oferta">
+                                <p class="alert hidden">Debe rellenar todos los campos marcados con *</p>
+                            </div>
+                        </div>
+                        <input type="hidden" name="userId" th:value="${#authentication.principal.id}" />
                     </form>
 
-                    <!-- FORMULARIOS ESPECÍFICOS-->
-                    <form action="" class="hidden" id="form2">
-
-                        <div id="form2_coches" class="hidden">
-                            <label class="form-label" for="km">Kilómetros:</label>
-                            <input class="mb-3 form-control" type="number" id="km" name="km" min="1" max="999999"
-                                step="100"><br>
-                            <label class="form-label" for="puertas">Puertas:</label>
-                            <input required class="mb-3 form-control" type="number" id="puertas" name="puertas" min="3"
-                                max="7" step="1"><br>
-                            <label class="form-label" for="consumo">Consumo:</label>
-                            <input class="mb-3 form-control" type="number" step="0.1" min="1.0" id="consumo"
-                                name="consumo" placeholder="5.8"><br>
-                        </div>
-
-                        <div id="form2_motos" class="hidden">
-                            <label class="form-label" for="km">Kilómetros:</label>
-                            <input class="mb-3 form-control" type="number" id="km" name="km" min="1" max="999999"
-                                step="100"><br>
-                            <label class="form-label" for="cilindrada">Cilindrada:</label>
-                            <select class="mb-3 form-control" id="cilindrada" name="cilindrada">
-                                <option value=""> --- </option>
-                                <option value="50">50</option>
-                                <option value="125">125</option>
-                                <option value="250">250</option>
-                                <option value="300">300</option>
-                                <option value="500">500</option>
-                                <option value="900">900</option>
-                                <option value="1000">1000</option>
-                            </select><br>
-                            <label class="form-label" for="consumo">Consumo:</label>
-                            <input class="mb-3 form-control" type="number" step="0.1" min="1.0" id="consumo"
-                                name="consumo" placeholder="5.8"><br>
-                        </div>
-
-                        <div id="form2_moda" class="hidden">
-                            <label class="form-label" for="talla">Talla:</label>
-                            <select class="mb-3 form-control" id="talla" name="talla">
-                                <option value=""> --- </option>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select><br>
-                        </div>
-
-
-                        <div id="form2_inmo" class="hidden">
-                            <label class="form-label" for="m2">Metros Cuadrados:</label>
-                            <input class="mb-3 form-control" type="number" id="m2" name="m2" min="1" max="999999"
-                                step="10"><br>
-                            <label class="form-label" for="banos">Baños:</label>
-                            <input class="mb-3 form-control" type="number" id="banos" name="banos" min="1" max="99"
-                                step="1"><br>
-                            <label class="form-label" for="consumo">Habitaciones:</label>
-                            <input class="mb-3 form-control" type="number" step="1" min="1" id="habitaciones"
-                                name="habitaciones" placeholder="5.8"><br>
-                            <label for="direccion" class="form-label">Dirección:</label>
-                            <input class="mb-3 form-control" type="text" name="direccion" id="direccion">
-                        </div>
-
-                        <div id="form2_bicis" class="hidden">
-                            <label class="form-label" for="tipo_bici">Tipo de bici:</label>
-                            <select class="mb-3 form-control" id="tipo_bici" name="tipo_bici">
-                                <option value=""> --- </option>
-                                <option value="Montana">Montaña</option>
-                                <option value="Carretera">Carretera</option>
-                            </select><br>
-                            <label class="form-label" for="num_marchas">Número de marchas:</label>
-                            <input class="mb-3 form-control" type="number" id="num_marchas" name="num_marchas" min="1"
-                                max="20" step="1"><br>
-                        </div>
-
-
-                        <div id="form2_servicios" class="hidden">
-                            <label class="form-label" for="tiempo">Duración del servicio (minutos):</label>
-                            <input class="mb-3 form-control" type="number" id="tiempo" name="tiempo" min="5" max="999"
-                                step="5"><br>
-                            <label class="form-label" for="calificacion">Tu calificación para ofrecer el
-                                servicio:</label>
-                            <input class="mb-3 form-control" type="text" id="calificacion" name="calificacion"><br>
-                        </div>
-
-                        <div class="bottom-line d-flex justify-content-between">
-                            <input id="nextButton2" type="submit" class="btnUpload" value=Siguiente>
-                        </div>
-                    </form>
-
-                    <!-- FORMULARIO FINAL -->
-                    <form class="hidden" id="form3" action="">
-                        <label class="form-label" for="valor_estimado">Valor Estimado Del Producto:*</label>
-                        <input required oninvalid="showAlert()" class="mb-3 form-control" type="number" id="valor_estimado" name="valor_estimado"
-                            min="1"><br>
-
-                        <label class="form-label" for="remitente_busca_cat">Busco:*</label>
-                        <select required oninvalid="showAlert()" class="mb-3 form-control" id="remitente_busca_cat" name="remitente_busca_cat">
-                            <option value=""> --- </option>
-                            <option value="Coches">Coches</option>
-                            <option value="Motos">Motos</option>
-                            <option value="Moda">Moda</option>
-                            <option value="Inmobiliaria">Inmobiliaria</option>
-                            <option value="Cine">Cine</option>
-                            <option value="Videojuegos">Videojuegos</option>
-                            <option value="Ordenadores">Ordenadores</option>
-                            <option value="Móviles">Móviles</option>
-                            <option value="Bicis">Bicis</option>
-                            <option value="Deporte">Deporte</option>
-                        </select><br>
-
-                        <label for="remitente_busca">Descripción de lo que busco:</label>
-                        <textarea class="mb-3 form-control" id="remitente_busca" name="remitente_busca"></textarea><br>
-
-                        <div class="bottom-line d-flex justify-content-between">
-                            <input id="uploadOfferButton" type="submit" class="btnUpload" value="Subir oferta">
-                            <p class="alert hidden">Debe rellenar todos los campos marcados con *</p>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../JS/offerUploadScript.js"></script>
+    <!-- SUCCESS MESSAGE MODAL -->
+
+    <div class="modal fade " id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content bg-success text-center">
+                <div class="modal-header text-white d-flex justify-content-center">
+                    <h5 class="modal-title text-center" id="successModalLabel">¡Enhorabuena!</h5>
+                </div>
+                <div class="modal-body text-white text-center">
+                    <p>La oferta se ha publicado con éxito.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/offerUploadScript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
 
 </html>

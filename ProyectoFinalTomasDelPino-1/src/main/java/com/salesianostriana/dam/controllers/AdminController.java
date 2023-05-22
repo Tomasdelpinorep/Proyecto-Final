@@ -1,4 +1,6 @@
 package com.salesianostriana.dam.controllers;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.salesianostriana.dam.models.Oferta;
 import com.salesianostriana.dam.models.Usuario;
+import com.salesianostriana.dam.services.CategoriaService;
 import com.salesianostriana.dam.services.OfertaService;
 import com.salesianostriana.dam.services.UsuarioService;
 
@@ -21,14 +24,22 @@ public class AdminController {
 	private UsuarioService usuarioService;
 	@Autowired
 	private OfertaService ofertaService;
+	@Autowired 
+	private CategoriaService categoriaService;
 
 	@GetMapping("/")
-	public String mainForAdmins() {
+	public String mainForAdmins(Model model) {
+		model.addAttribute("categories",categoriaService.findAll());
 		return "mainForAdmins";
 	}
 	
 	@GetMapping("/adminUsers")
 	public String adminUsers(Model model) {
+		List<Usuario> usuarios = usuarioService.findAll();
+		for(Usuario u: usuarios) {
+			usuarioService.setOfertasPublicadas(u);
+		}
+		
 		model.addAttribute("listaUsuarios",usuarioService.findAll());
 		return "adminUsers";
 	}
