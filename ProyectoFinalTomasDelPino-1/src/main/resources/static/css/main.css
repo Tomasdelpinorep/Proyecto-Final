@@ -269,6 +269,7 @@ section div .row {
 
 .dropdown-menu {
   min-width: fit-content !important;
+  left:-35% !important;
 }
 
 button:active {

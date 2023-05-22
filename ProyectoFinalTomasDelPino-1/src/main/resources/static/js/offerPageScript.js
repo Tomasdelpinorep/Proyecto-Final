@@ -9,12 +9,6 @@ $(document).ready(function() {
 	);
 });
 
-$('#successModal').on('shown.bs.modal', function() {
-	setTimeout(function() {
-		$('#successModal').modal('hide');
-	}, 1000);
-});
-
 function submitForm(event, offerId) {
 	// Prevent the default form submission behavior
 	event.preventDefault();

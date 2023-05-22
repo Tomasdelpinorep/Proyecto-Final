@@ -41,6 +41,9 @@ public class Oferta {
 	@Column(name = "Pendiente", columnDefinition = "BOOLEAN DEFAULT false")
 	private boolean Pendiente;
 	
+	@Column(name = "Intercambiado", columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean intercambiado;
+	
 	@OneToOne
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	public Usuario remitente;

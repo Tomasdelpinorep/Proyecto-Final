@@ -22,34 +22,49 @@
 <body>
 	<nav class="navbar navbar-expand-lg" id="my-navbar">
 		<div class="container-fluid">
-			<a class="navbar-brand logo p-0" href="#">Barter</a>
+			<a class="navbar-brand logo p-0" th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{/}">Barter</a>
+			<a class="navbar-brand logo p-0" th:href="@{/admin/}"
+				th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Barter</a>
+			<a class="navbar-brand logo p-0" th:href="@{/user/}"
+				th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">Barter</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between">
-					<li class="nav-item flex-grow-1 w-50 text-center">
-						<a class="nav-link active" aria-current="page" th:href="@{/user/uploadOffer}">Sube una oferta</a>
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active text-center" aria-current="page" th:href="@{/user/uploadOffer}">Sube una oferta</a>
 					</li>
-					<li class="nav-item flex-grow-1 text-center">
-						<div class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle nav-link" type="button"
+					<li class="nav-item">
+						<div class="dropdown d-flex justify-content-center">
+							<button th:if="${#authorization.expression('isAuthenticated()')}"
+								class="btn btn-secondary dropdown-toggle nav-link" type="button"
 								id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 								<span sec:authentication="name">
 							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+							<ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+								<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+								<li>
+									<a class="btn dropdown-item" th:href="@{/user/barterPannel}">Panel de Intercambios</a>
+								</li>
 								<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
 								<li><a class="btn dropdown-item"
 										href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+								</li>
 							</ul>
+
+							<a th:unless="${#authorization.expression('isAuthenticated()')}" id="logInButton"
+								class="nav-link text-center" th:href="@{/main}">Log In</a>
 						</div>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+	
 	<div class="container-fluid p-0 pt-5" id="mainPage">
 		<div class="slanted-background"></div>
 		<div class="subcontainer1">

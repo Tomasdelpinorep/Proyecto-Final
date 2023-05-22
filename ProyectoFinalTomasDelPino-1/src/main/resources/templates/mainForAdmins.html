@@ -42,10 +42,15 @@
 								id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 								Admin
 							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
 								<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
+								<li>
+									<a class="btn dropdown-item" th:href="@{/user/barterPannel}">Panel de
+										Intercambios</a>
+								</li>
 								<li><a class="btn dropdown-item"
 										href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+								</li>
 							</ul>
 						</div>
 					</li>
