@@ -27,6 +27,9 @@ public class Oferta {
 	private double valorEstimado;
 	private String remitenteBusca;
 	
+	@Column(name = "imageURL", columnDefinition = "VARCHAR(255) DEFAULT null")
+	private String imageURL;
+	
 	@ManyToOne
 	private Categoria remitenteBuscaCat;
 	
@@ -35,8 +38,11 @@ public class Oferta {
 	
 	private String nombre,descripcion,estado;
 	
+	@Column(name = "Pendiente", columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean Pendiente;
+	
 	@OneToOne
-	 @OnDelete(action = OnDeleteAction.CASCADE)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public Usuario remitente;
 	
 	//Atributos para coches
@@ -65,9 +71,9 @@ public class Oferta {
 	@Column(name = "num_banos", columnDefinition = "SMALLINT DEFAULT 0")
 	private short numBanos;
 	
-	//Atributos para ordenadores
-	@Column(name = "almacenamiento", columnDefinition = "VARCHAR(255) DEFAULT 0")
-	private double almacenamiento;
+//	//Atributos para ordenadores
+//	@Column(name = "almacenamiento", columnDefinition = "VARCHAR(255) DEFAULT 0")
+//	private double almacenamiento;
 	
 	//Atributos para bicicletas
 	@Column(name = "num_marchas", columnDefinition = "SMALLINT DEFAULT 0")
