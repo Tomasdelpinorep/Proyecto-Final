@@ -41,6 +41,9 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item flex-grow-1 text-center">
+						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="nav-link active" aria-current="page" th:href="@{/admin/adminUsers}">Admin Page</a>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link active text-center" aria-current="page" href="#">Sube una oferta</a>
 					</li>
@@ -81,7 +84,7 @@
 
 			<!-- HTML para COCHES -->
 
-			<div th:if="${offer.cat.id == 1}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 1 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -197,7 +200,7 @@
 		<!-- HTML para MOTOS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 2}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 2 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -237,7 +240,7 @@
 		<!-- HTML para MODA -->
 		<div th:each="offer: ${offerListById}" data-aos="fade-up" data-aos-duration="1000"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 3}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 3 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -275,7 +278,7 @@
 		<!-- HTML para INMOBILIARIA -->
 		<div th:each="offer: ${offerListById}" data-aos="fade-up" data-aos-duration="1000"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 4}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 4 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -316,7 +319,7 @@
 		<!-- HTML para AUDIO E IMAGEN -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 5}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 5 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -354,7 +357,7 @@
 		<!-- HTML para VIDEOJUEGOS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 6}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 6 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -391,7 +394,7 @@
 		<!-- HTML para INFORMÁTICA -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 7}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 7 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -427,7 +430,7 @@
 		<!-- HTML para BICICLETAS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 8}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 8 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -466,7 +469,7 @@
 		<!-- HTML para DEPORTE -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 9}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 9 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
@@ -503,7 +506,7 @@
 		<!-- HTML para SERVICIOS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 10}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			<div th:if="${offer.cat.id == 10 and offer.intercambiado == false}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
 			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
