@@ -9,34 +9,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="">
-                        <span class="logo">Barter</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/adminUsers">
-                        <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
-                        <span class="title">Usuarios</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/adminOffers">
-                        <span class="icon"><ion-icon name="grid-outline"></ion-icon></span>
-                        <span class="title">Ofertas</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/adminBarters">
-                        <span class="icon"><ion-icon name="swap-vertical-outline"></ion-icon></span>
-                        <span class="title">Intercambios</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <div class="navigation">
+        <ul>
+          <li>
+            <a href="">
+              <span class="logo">Barter</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminUsers">
+              <span class="icon"
+                ><ion-icon name="person-outline"></ion-icon
+              ></span>
+              <span class="title">Usuarios</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminOffers">
+              <span class="icon"
+                ><ion-icon name="grid-outline"></ion-icon
+              ></span>
+              <span class="title">Ofertas</span>
+            </a>
+          </li>
+          <li>
+            <a href="adminBarters">
+              <span class="icon"
+                ><ion-icon name="swap-vertical-outline"></ion-icon
+              ></span>
+              <span class="title">Intercambios</span>
+            </a>
+          </li>
+          <li>
+		  </li>
+        </ul>
+        <a id="back" class="back" th:href="@{/admin/}">Página Principal</a>
+      </div>
 
         <!--Main-->
 
@@ -45,17 +53,6 @@
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
-                <!--Search-->
-                <div class="search">
-                    <label for="">
-                        <input type="text" placeholder="Buscar ____">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
-                <!--User Image-->
-                <div class="user">
-                    <img src="../cat lisa.png" alt="Cat Lisa">
-                </div>
             </div>
 
             <!--Table-->
@@ -63,7 +60,6 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Intercambios</h2>
-                        <a href="#" class="btn">Ver Todos</a>
                     </div>
                     <table>
                         <thead>
@@ -74,16 +70,18 @@
                                 <td>Id Oferta</td>
                                 <td>Fecha Realización</td>
                                 <td>Valor Total Intercambiado</td>
+                                <td>Estado</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>UserRemitente</td>
-                                <td>1</td>
-                                <td>UserOrdenante</td>
-                                <td>2</td>
-                                <td>03/10/2022</td>
-                                <td>5€</td>
+                            <tr th:each="intercambio : ${listaIntercambios}">
+                                <td th:text="${intercambio.oferta1.remitente.id}">UserRemitente</td>
+                                <td th:text="${intercambio.oferta1.id}">1</td>
+                                <td th:text="${intercambio.oferta1.remitente.id}">UserOrdenante</td>
+                                <td th:text="${intercambio.oferta2.id}">2</td>
+                                <td th:text="${intercambio.fechaRealizacion}">03/10/2022</td>
+                                <td th:text="${intercambio.oferta1.valorEstimado + intercambio.oferta2.valorEstimado} + '€'">5€</td>
+                                <td th:text="${intercambio.estado}"></td>
                             </tr>
                         </tbody>
                     </table>

@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,4 +31,6 @@ public class Intercambio {
 	
 	@ManyToOne 
 	private Usuario interesado;
+	
+	private LocalDate fechaRealizacion;
 }

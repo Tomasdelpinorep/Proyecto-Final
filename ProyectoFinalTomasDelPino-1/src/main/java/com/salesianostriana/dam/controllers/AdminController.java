@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianostriana.dam.models.Oferta;
 import com.salesianostriana.dam.models.Usuario;
-import com.salesianostriana.dam.repositories.UsuarioRepository;
 import com.salesianostriana.dam.services.CategoriaService;
+import com.salesianostriana.dam.services.IntercambioService;
 import com.salesianostriana.dam.services.OfertaService;
 import com.salesianostriana.dam.services.UsuarioService;
 
@@ -25,13 +25,13 @@ import com.salesianostriana.dam.services.UsuarioService;
 public class AdminController {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
-	@Autowired
 	private UsuarioService usuarioService;
 	@Autowired
 	private OfertaService ofertaService;
 	@Autowired
 	private CategoriaService categoriaService;
+	@Autowired
+	IntercambioService intercambioService;
 
 	@GetMapping("/")
 	public String mainForAdmins(Model model) {
@@ -57,7 +57,8 @@ public class AdminController {
 	}
 
 	@GetMapping("/adminBarters")
-	public String adminBarters() {
+	public String adminBarters(Model model) {
+		model.addAttribute("listaIntercambios",intercambioService.findAll());
 		return "adminBarters";
 	}
 

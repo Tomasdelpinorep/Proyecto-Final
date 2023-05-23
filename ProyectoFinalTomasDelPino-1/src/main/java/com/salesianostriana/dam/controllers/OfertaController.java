@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.controllers;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,7 @@ public class OfertaController {
 		i.setOferta2(o);
 		i.setInteresado(o.getRemitente());
 		i.setEstado("Pendiente");
+		i.setFechaRealizacion(LocalDate.now());
 		intercambioRepostory.save(i);
 		
 		
