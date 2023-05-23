@@ -327,3 +327,7 @@
       font-weight: 700;
       color: red;
   }
+  
+.btn-text-white{
+	color: white !important;
+}

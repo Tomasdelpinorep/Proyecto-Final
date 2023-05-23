@@ -1,5 +1,5 @@
 --Password:1234
-INSERT INTO Usuario(id,nombre,apellidos,email, fecha_alta,password,username,is_admin) VALUES (1,'Tomás','Del Pino','tdelpino@gmail.com','2023-05-10','{bcrypt}$2a$12$EHpWeNHpOIsuiuMfQLh45Od1Cqkh1jxBOScJSfGPlnr3hB/Rtq96a','tdelpino',false);
+INSERT INTO Usuario(id,nombre,apellidos,email, fecha_alta,password,username,is_admin) VALUES (1,'Tomás','Del Pino','tdelpino@gmail.com','2023-05-10','{bcrypt}$2a$12$EHpWeNHpOIsuiuMfQLh45Od1Cqkh1jxBOScJSfGPlnr3hB/Rtq96a','usuario',false);
 
 --Password:admin
 INSERT INTO Usuario(id,nombre,apellidos,email, fecha_alta,password,username,is_admin) VALUES (2,'Tomás','Del Pino','admin@barter.com','2023-05-10','{bcrypt}$2a$12$dwnYqWMUA7VigHT3xfCmR.WQNejNtdpEOFZswZzVQnCyUyTHt0A6m','admin',true);

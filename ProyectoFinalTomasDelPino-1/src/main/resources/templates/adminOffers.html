@@ -73,7 +73,6 @@
           <div class="recentOrders">
             <div class="cardHeader">
               <h2>Ofertas</h2>
-              <a href="#" class="btn">Ver Todos</a>
             </div>
             <table>
               <thead>
@@ -83,7 +82,6 @@
                   <td>Categoría</td>
                   <td>Publicante</td>
                   <td>Valor Estimado</td>
-                  <td>Estado</td>
                 </tr>
               </thead>
               <tbody>
@@ -93,7 +91,8 @@
                   <td th:text="${oferta.cat.nombre}">Coches</td>
                   <td th:text="${oferta.remitente.id}">Coches</td>
                   <td th:text="${oferta.valorEstimado}">1€</td>
-                  <td>Publicado</td>
+                  <td><a href="#" th:href="@{/admin/editOffer/{id}(id=${oferta.id})}">Editar</a></td>
+                  <td><a href="#" th:href="@{/admin/deleteOffer/{id}(id=${oferta.id})}">Borrar</a></td>
                 </tr>
               </tbody>
             </table>

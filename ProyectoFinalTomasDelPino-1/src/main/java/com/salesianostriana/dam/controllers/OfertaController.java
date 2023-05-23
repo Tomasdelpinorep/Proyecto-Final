@@ -20,7 +20,6 @@ import com.salesianostriana.dam.models.Usuario;
 import com.salesianostriana.dam.repositories.IntercambioRepository;
 import com.salesianostriana.dam.repositories.OfertaRepository;
 import com.salesianostriana.dam.services.CategoriaService;
-import com.salesianostriana.dam.services.IntercambioService;
 import com.salesianostriana.dam.services.OfertaService;
 import com.salesianostriana.dam.services.UsuarioService;
 
@@ -97,13 +96,15 @@ public class OfertaController {
 			 @RequestParam("num_marchas") short num_marchas,
 			 @RequestParam("tiempo") short duracion,
 			 @RequestParam("calificacion") String titulacion,
-			 @RequestParam("userId") long userId){
+			 @RequestParam("userId") long userId,
+			 @RequestParam("buscaCatId")long buscaCatId){
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		//Consigo la categoría y al usuario por su ID
 		Categoria cat = categoriaService.findById(categoriaId);
 		Usuario remitente = usuarioService.findById(userId);
+		Categoria remitenteBuscaCat = categoriaService.findById(buscaCatId);
 		
 		
 		Oferta o = new Oferta();
@@ -123,6 +124,7 @@ public class OfertaController {
 		o.setDuracion(duracion);
 		o.setTitulacion(titulacion);
 		o.setRemitente(remitente);
+		o.setRemitenteBuscaCat(remitenteBuscaCat);
 		
 		ofertaRepository.save(o);
 		

@@ -19,9 +19,13 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet" />
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 
 <body>
+	<script>AOS.init();</script>
+    
 	<nav class="navbar navbar-expand-lg" id="my-navbar">
 		<div class="container-fluid">
 			<a class="navbar-brand logo p-0" th:unless="${#authorization.expression('isAuthenticated()')}"
@@ -51,8 +55,13 @@
 							<ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
 								<form th:action="@{/logout}" method="POST" id="logoutForm"></form>
 								<li>
+									<a class="btn dropdown-item" th:href="@{/user/barterPannel}">Panel de
+										Intercambios</a>
+								</li>
+								<li>
 									<a class="btn dropdown-item"
 										href="javascript:document.getElementById('logoutForm').submit()">Log out</a>
+								</li>
 							</ul>
 
 							<a th:unless="${#authorization.expression('isAuthenticated()')}" id="logInButton"
@@ -72,7 +81,8 @@
 
 			<!-- HTML para COCHES -->
 
-			<div th:if="${offer.cat.id == 1}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 1}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -187,7 +197,8 @@
 		<!-- HTML para MOTOS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 2}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 2}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -224,9 +235,10 @@
 		<!-- ***************************************************************************** -->
 
 		<!-- HTML para MODA -->
-		<div th:each="offer: ${offerListById}"
+		<div th:each="offer: ${offerListById}" data-aos="fade-up" data-aos-duration="1000"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 3}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 3}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -261,9 +273,10 @@
 		<!-- ***************************************************************************** -->
 
 		<!-- HTML para INMOBILIARIA -->
-		<div th:each="offer: ${offerListById}"
+		<div th:each="offer: ${offerListById}" data-aos="fade-up" data-aos-duration="1000"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 4}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 4}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -303,7 +316,8 @@
 		<!-- HTML para AUDIO E IMAGEN -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 5}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 5}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -340,7 +354,8 @@
 		<!-- HTML para VIDEOJUEGOS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 6}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 6}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -412,7 +427,8 @@
 		<!-- HTML para BICICLETAS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 8}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 8}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -450,7 +466,8 @@
 		<!-- HTML para DEPORTE -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 9}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 9}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">
@@ -486,7 +503,8 @@
 		<!-- HTML para SERVICIOS -->
 		<div th:each="offer: ${offerListById}"
 			class="container-fluid p-0 d-flex justify-content-center align-content-center">
-			<div th:if="${offer.cat.id == 10}" class="row d-flex justify-content-center align-content-center mt-5 gy-3">
+			<div th:if="${offer.cat.id == 10}" class="row d-flex justify-content-center align-content-center mt-5 gy-3"
+			data-aos="fade-up" data-aos-duration="1000">
 				<div class="col-md-4 col-12">
 					<div class="image-container">
 						<div th:if="${offer.imageURL == null}" class="icon-background">

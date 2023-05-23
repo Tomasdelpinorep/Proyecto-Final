@@ -28,7 +28,7 @@
 			<div class="col center-items">
 				<p class="logo logo-background">Barter</p>
 
-				<form class="visible" id="userForm" th:action="@{/newUserRegistered}" method="POST">
+				<form class="visible" id="userForm" th:action="@{/admin/newUser/submit}" method="POST">
 					<label class="form-label" for="name">Nombre:*</label>
 					<input required oninvalid="showAlert()" class="mb-3 form-control" type="text" id="name"
 						name="name"><br>
@@ -42,6 +42,11 @@
 					<input required class="mb-3 form-control" id="email" type="email" name="email"><br>
 					<label for="password">Contraseña:*</label>
 					<input required class="mb-3 form-control" id="password" type="password" name="password"><br>
+					<label class="form-label" for"isAdmin">¿Es administrador?</label>
+					<select class="form-control" name="isAdmin" id="isAdmin">
+						<option value="true">Sí</option>
+						<option value="false">No</option>
+					</select>
 					<div class="bottom-line d-flex justify-content-between">
 						<input id="nextButton" type="submit" class="btnUpload" value=Aceptar>
 						<p class="alert hidden">Debe rellenar todos los campos marcados con *</p>
